@@ -7,6 +7,8 @@
       {
         /* euh.js. */
         "euh-js" : "../../node_modules/euh.js/dist/euh",
+        /* jQuery. */
+        "jquery" : "../../components/jquery/jquery",
         /* Underscore.js & Backbone.js. */
         "underscore" : "../../node_modules/underscore/underscore",
         "backbone" : "../../node_modules/backbone/backbone"
@@ -26,7 +28,7 @@
           },
         "backbone" :
           {
-            "deps" : [ "underscore" ],
+            "deps" : [ "jquery", "underscore" ],
             "exports" : "Backbone"
           }
       },
@@ -34,6 +36,7 @@
     "exclude" :
       [
         "euh-js",
+        "jquery",
         "underscore",
         "backbone"
       ],

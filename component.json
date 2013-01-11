@@ -1,0 +1,9 @@
+{
+  "name" : "backbone-calendar",
+  "version" : "0.0.1",
+  "main" : "./dist/backbone-calendar.min.js",
+  "dependencies" :
+    {
+      "jquery" : "latest"
+    }
+}

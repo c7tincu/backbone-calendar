@@ -34,6 +34,10 @@ grunt.registerTask(
       "dist/lib/euh.js"
     );
     grunt.file.copy(
+      "components/jquery/jquery.js",
+      "dist/lib/jquery.js"
+    );
+    grunt.file.copy(
       "node_modules/underscore/underscore.js",
       "dist/lib/underscore.js"
     );

@@ -14,6 +14,8 @@ requirejs.config(
       {
         /* euh.js. */
         "euh-js" : "../../dist/lib/euh",
+        /* jQuery. */
+        "jquery" : "../../dist/lib/jquery",
         /* Underscore.js & Backbone.js. */
         "underscore" : "../../dist/lib/underscore",
         "backbone" : "../../dist/lib/backbone",
@@ -35,7 +37,7 @@ requirejs.config(
           },
         "backbone" :
           {
-            "deps" : [ "underscore" ],
+            "deps" : [ "jquery", "underscore" ],
             "exports" : "Backbone"
           }
       },
