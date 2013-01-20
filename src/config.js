@@ -15,12 +15,14 @@ requirejs.config(
     "paths" :
       {
         /* euh.js. */
-        "euh-js" : "../../node_modules/euh.js/dist/euh",
+        "euh-js" : "../../components/euh.js/dist/euh",
+        /* JSON 2. */
+        "json2" : "../../components/json2/json2",
         /* jQuery. */
         "jquery" : "../../components/jquery/jquery",
         /* Underscore.js & Backbone.js. */
-        "underscore" : "../../node_modules/underscore/underscore",
-        "backbone" : "../../node_modules/backbone/backbone"
+        "underscore" : "../../components/underscore/underscore",
+        "backbone" : "../../components/backbone/backbone"
       },
     /* Shim all the non-AMD-compliant modules. */
     "shim" :
@@ -30,6 +32,11 @@ requirejs.config(
           {
             "exports" : "ø"
           },
+        /* JSON 2. */
+        "json2" :
+          {
+            "exports" : "JSON"
+          },
         /* Underscore.js & Backbone.js. */
         "underscore" :
           {
@@ -37,7 +44,7 @@ requirejs.config(
           },
         "backbone" :
           {
-            "deps" : [ "jquery", "underscore" ],
+            "deps" : [ "json2", "jquery", "underscore" ],
             "exports" : "Backbone"
           }
       },

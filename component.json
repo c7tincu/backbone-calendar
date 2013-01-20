@@ -4,6 +4,11 @@
   "main" : "./dist/backbone-calendar.min.js",
   "dependencies" :
     {
-      "jquery" : "latest"
+      "requirejs" : "latest",
+      "euh.js" : "latest",
+      "jquery" : "latest",
+      "json2" : "latest",
+      "underscore" : "latest",
+      "backbone" : "latest"
     }
 }

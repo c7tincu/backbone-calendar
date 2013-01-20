@@ -26,23 +26,27 @@ grunt.registerTask(
   "copy-lib",
   function () {
     grunt.file.copy(
-      "node_modules/requirejs/require.js",
+      "components/requirejs/require.js",
       "dist/lib/require.js"
     );
     grunt.file.copy(
-      "node_modules/euh.js/dist/euh.js",
+      "components/euh.js/dist/euh.js",
       "dist/lib/euh.js"
+    );
+    grunt.file.copy(
+      "components/json2/json2.js",
+      "dist/lib/json2.js"
     );
     grunt.file.copy(
       "components/jquery/jquery.js",
       "dist/lib/jquery.js"
     );
     grunt.file.copy(
-      "node_modules/underscore/underscore.js",
+      "components/underscore/underscore.js",
       "dist/lib/underscore.js"
     );
     grunt.file.copy(
-      "node_modules/backbone/backbone.js",
+      "components/backbone/backbone.js",
       "dist/lib/backbone.js"
     );
   }

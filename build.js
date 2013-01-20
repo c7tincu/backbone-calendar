@@ -6,12 +6,14 @@
     "paths" :
       {
         /* euh.js. */
-        "euh-js" : "../../node_modules/euh.js/dist/euh",
+        "euh-js" : "../../components/euh.js/dist/euh",
+        /* JSON 2. */
+        "json2" : "../../components/json2/json2",
         /* jQuery. */
         "jquery" : "../../components/jquery/jquery",
         /* Underscore.js & Backbone.js. */
-        "underscore" : "../../node_modules/underscore/underscore",
-        "backbone" : "../../node_modules/backbone/backbone"
+        "underscore" : "../../components/underscore/underscore",
+        "backbone" : "../../components/backbone/backbone"
       },
     /* Shim all the non-AMD-compliant modules. */
     "shim" :
@@ -21,6 +23,11 @@
           {
             "exports" : "ø"
           },
+        /* JSON 2. */
+        "json2" :
+          {
+            "exports" : "JSON"
+          },
         /* Underscore.js & Backbone.js. */
         "underscore" :
           {
@@ -28,7 +35,7 @@
           },
         "backbone" :
           {
-            "deps" : [ "jquery", "underscore" ],
+            "deps" : [ "json2", "jquery", "underscore" ],
             "exports" : "Backbone"
           }
       },
@@ -36,6 +43,7 @@
     "exclude" :
       [
         "euh-js",
+        "json2",
         "jquery",
         "underscore",
         "backbone"

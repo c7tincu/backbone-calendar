@@ -4,10 +4,7 @@
   "private" : true,
   "dependencies" :
     {
-      "requirejs" : "latest",
-      "euh.js" : "latest",
-      "underscore" : "latest",
-      "backbone" : "latest"
+      "requirejs" : "latest"
     },
   "devDependencies" :
     {
