@@ -6,7 +6,7 @@
     {
       "requirejs" : "latest",
       "euh.js" : "latest",
-      "jquery" : "latest",
+      "jquery" : "1.x",
       "json2" : "latest",
       "underscore" : "latest",
       "backbone" : "latest"

@@ -1,4 +1,10 @@
+*.2s text=auto
+*.css text=auto
+*.ejs text=auto
 *.html text=auto
 *.js text=auto
 *.json text=auto
+*.less text=auto
 *.md text=auto
+*.sh text=auto
+*.txt text=auto

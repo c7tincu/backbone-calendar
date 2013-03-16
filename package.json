@@ -2,17 +2,15 @@
   "name" : "backbone-calendar",
   "version" : "0.0.1",
   "private" : true,
-  "dependencies" :
-    {
-      "requirejs" : "latest"
-    },
   "devDependencies" :
     {
       "grunt" : "latest",
-      "grunt-exec" : "latest"
+      "grunt-cli" : "latest",
+      "grunt-exec" : "latest",
+      "requirejs" : "latest"
     },
   "scripts" :
     {
-      "grunt" : "node_modules/.bin/grunt"
+      "grunt" : "node_modules/grunt-cli/bin/grunt"
     }
 }

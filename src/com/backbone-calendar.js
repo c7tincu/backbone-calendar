@@ -18,8 +18,8 @@ var events;
 
 initializeImpl =
   /* Invoked when the view is created. */
-  function (options) {
-    ø.pil("initializeImpl() >>>");
+  function (opt) {
+    ø.pil("Backbone.Calendar.initialize() >>> ", opt);
     /* Bind `this` for all of the object’s function members.
        http://backbonejs.org/#FAQ-this */
     _.bindAll(this);
@@ -28,7 +28,7 @@ initializeImpl =
 renderImpl =
   /* Renders the view. */
   function () {
-    ø.pil("renderImpl() >>>");
+    ø.pil("Backbone.Calendar.render() >>>");
     this.$el.html("☺");
     /* Rebind all the events. */
     this.delegateEvents();
@@ -39,14 +39,14 @@ renderImpl =
 removeImpl =
   /* Removes the view from the DOM. */
   function (jqEvent) {
-    ø.pil("removeImpl() >>>");
+    ø.pil("Backbone.Calendar.remove() >>> ", jqEvent);
     this.$el.html("");
     /* Prevent default event handling on buttons, anchors, etc. */
-    if (jqEvent) {
-      jqEvent.preventDefault();
-    }
+    jqEvent && jqEvent.preventDefault();
     /* Unbind all the events. */
     this.undelegateEvents();
+    /* Stop listening to outside events. */
+    this.stopListening();
     /* Return `this` for chained calls. */
     return this;
   };
