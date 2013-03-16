@@ -39,8 +39,15 @@ grunt.initConfig(
       {
         "build" :
           {
-            "src" : "dist/backbone-calendar.js",
-            "dest" : "dist/backbone-calendar.min.js"
+            /* I can haz source maps? */
+            "options" :
+              {
+                "sourceMap" : "dist/backbone-calendar.map.js",
+                "sourceMappingURL" : "backbone-calendar.map.js",
+                "sourceMapRoot" : ".."
+              },
+              "src" : [ "dist/backbone-calendar.js" ],
+              "dest" : "dist/backbone-calendar.min.js"
           }
       }
   }
