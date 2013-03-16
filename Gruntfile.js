@@ -4,18 +4,43 @@ module.exports =
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-/* Load the grunt-exec plugin. */
+/* Load the tasks. */
 grunt.loadNpmTasks("grunt-exec");
+grunt.loadNpmTasks("grunt-remove-logging");
+grunt.loadNpmTasks("grunt-contrib-uglify");
 
-/* Configure grunt-exec with the RequireJS optimization tool. */
+/* Configure the tasks. */
 grunt.initConfig(
   {
     "exec" :
       {
         "build" :
           {
-            /* Pass `optimize=none` in order to skip uglification. */
-            "command" : "node node_modules/requirejs/bin/r.js -o build.js"
+            /* Pass `optimize=none` in order to skip uglification.
+               Logging removal on uglified code is probably not possible. */
+            "command" :
+              "node node_modules/requirejs/bin/r.js -o build.js optimize=none"
+          }
+      },
+    "removelogging" :
+      {
+        "dist" :
+          {
+            "src" : "dist/backbone-calendar.log.js",
+            "dest" : "dist/backbone-calendar.js",
+            "options" :
+              {
+                "namespace" : "ø",
+                "methods" : [ "log", "fyi", "par", "pil" ]
+              }
+          }
+      },
+    "uglify" :
+      {
+        "build" :
+          {
+            "src" : "dist/backbone-calendar.js",
+            "dest" : "dist/backbone-calendar.min.js"
           }
       }
   }
@@ -53,7 +78,15 @@ grunt.registerTask(
 );
 
 /* Configure the default task. */
-grunt.registerTask("default", [ "copy-lib", "exec" ]);
+grunt.registerTask(
+  "default",
+  [
+    "copy-lib",
+    "exec",
+    "removelogging",
+    "uglify"
+  ]
+);
 
 
 
