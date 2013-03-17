@@ -1,6 +1,4 @@
 
-define('text!ejs/head.ejs',[],function () { return '<div class="bc-left js-bc-left"></div>\n<div class="bc-center js-bc-center"></div>\n<div class="bc-right js-bc-right"></div>\n';});
-
 define('nls/i18n',
   {
     "root" :
@@ -17,20 +15,18 @@ define('nls/i18n',
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('views/head',['require','exports','module','euh-js','backbone','text!ejs/head.ejs','i18n!nls/i18n'],
+define('views/head',['require','exports','module','euh-js','backbone','i18n!nls/i18n'],
   function (require, exports, module) {
     
 
     /* Require the deps. */
     var ø = require("euh-js");
     var Backbone = require("backbone");
-    var headEjs = require("text!ejs/head.ejs");
     var i18n = require("i18n!nls/i18n");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 var api;
-var compiledHeadEjs = _.template(headEjs);
 var initializeImpl;
 var renderImpl;
 var removeImpl;
@@ -63,54 +59,60 @@ renderImpl =
   /* Renders the view. */
   function () {
     
-    this.$el.html(
-      compiledHeadEjs(
-        {
-          "model" : this.model,
-          "i18n" : i18n
-        }
-      )
-    );
     _.each(
       [ "left", "center", "right" ],
       function (value) {
-        var htmlText = "";
+        var $value;
         var i;
         var j;
         var li;
         var lj;
 
+        this.$el.append(
+          $("<div>")
+            .addClass("bc-" + value + " js-bc-" + value)
+        );
+        $value = this.$el.find(".js-bc-" + value);
         for (i = 0, li = this[value].length; i < li; ++ i) {
           for (j = 0, lj = this[value][i].length; j < lj; ++ j) {
             switch (this[value][i][j]) {
               case "title" :
-                htmlText += "<span class=\"bc-title js-bc-title\">…</span>";
+                $value.append(
+                  $("<span>")
+                    .addClass("bc-title js-bc-title")
+                    .html("…")
+                );
                 break;
               case "now" :
-                htmlText +=
-                  "<button class=\"bc-now js-bc-now\">" +
-                  i18n.head.now +
-                  "</button>";
+                $value.append(
+                  $("<button>")
+                    .addClass("bc-now js-bc-now")
+                    .html(i18n.head.now)
+                );
                 break;
               case "prev" :
-                htmlText +=
-                  "<button class=\"bc-prev js-bc-prev\">" +
-                  i18n.head.prev +
-                  "</button>";
+                $value.append(
+                  $("<button>")
+                    .addClass("bc-prev js-bc-prev")
+                    .html(i18n.head.prev)
+                );
                 break;
               case "next" :
-                htmlText +=
-                  "<button class=\"bc-next js-bc-next\">" +
-                  i18n.head.next +
-                  "</button>";
+                $value.append(
+                  $("<button>")
+                    .addClass("bc-next js-bc-next")
+                    .html(i18n.head.next)
+                );
                 break;
             }
           }
           if (i !== li - 1) {
-            htmlText += "<span class=\"break js-break\"></span>";
+            $value.append(
+              $("<span>")
+                .addClass("bc-sep js-bc-sep")
+            );
           }
         }
-        this.$el.find(".js-bc-" + value).html(htmlText);
       },
       this
     );
@@ -124,6 +126,7 @@ removeImpl =
   /* Removes the view from the DOM. */
   function (jqEvent) {
     
+    this.$el.html("");
     /* Prevent default event handling on buttons, anchors, etc. */
     jqEvent && jqEvent.preventDefault();
     /* Unbind all the events. */
@@ -162,8 +165,6 @@ return api;
   }
 );
 
-define('text!ejs/backbone-calendar.ejs',[],function () { return '<div class="bc-head js-bc-head"></div>\n<div class="bc-body js-bc-body"></div>\n<div class="bc-foot js-bc-foot"></div>\n';});
-
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
 define('defaults',['require','exports','module'],
@@ -173,6 +174,10 @@ define('defaults',['require','exports','module'],
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 var api;
+
+
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 api =
   {
@@ -195,7 +200,7 @@ return api;
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('backbone-calendar',['require','exports','module','euh-js','backbone','views/head','text!ejs/backbone-calendar.ejs','i18n!nls/i18n','defaults'],
+define('backbone-calendar',['require','exports','module','euh-js','backbone','views/head','i18n!nls/i18n','defaults'],
   function (require, exports, module) {
     
 
@@ -203,14 +208,12 @@ define('backbone-calendar',['require','exports','module','euh-js','backbone','vi
     var ø = require("euh-js");
     var Backbone = require("backbone");
     var HeadView = require("views/head");
-    var backboneCalendarEjs = require("text!ejs/backbone-calendar.ejs");
     var i18n = require("i18n!nls/i18n");
     var defaults = require("defaults");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 var api;
-var compiledBackboneCalendarEjs = _.template(backboneCalendarEjs);
 var initializeImpl;
 var renderImpl;
 var removeImpl;
@@ -235,13 +238,17 @@ renderImpl =
     
     this.$el
       .addClass("bc js-bc")
-      .html(
-        compiledBackboneCalendarEjs(
-          {
-            "model" : this.model,
-            "i18n" : i18n
-          }
-        )
+      .append(
+        $("<div>")
+          .addClass("bc-head js-bc-head")
+      )
+      .append(
+        $("<div>")
+          .addClass("bc-body js-bc-body")
+      )
+      .append(
+        $("<div>")
+          .addClass("bc-foot js-bc-foot")
       );
     if (this.optHeader) {
       this.headView = new HeadView(

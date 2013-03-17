@@ -66,10 +66,6 @@ grunt.registerTask(
       "dist/lib/require-i18n.js"
     );
     grunt.file.copy(
-      "components/requirejs-text/text.js",
-      "dist/lib/require-text.js"
-    );
-    grunt.file.copy(
       "components/json2/json2.js",
       "dist/lib/json2.js"
     );

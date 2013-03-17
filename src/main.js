@@ -9,10 +9,21 @@ define(
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-/* Create and render the component. */
+/* Create and render the components. */
 new Backbone.Calendar(
   {
-    "el" : $("#placeholder")
+    "el" : $("#placeholder-1")
+  }
+).render();
+new Backbone.Calendar(
+  {
+    "el" : $("#placeholder-2"),
+    "header" :
+      {
+        "left" : "prev,title,next",
+        "center" : "",
+        "right" : "now"
+      }
   }
 ).render();
 

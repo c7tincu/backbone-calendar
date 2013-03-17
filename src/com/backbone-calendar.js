@@ -8,14 +8,12 @@ define(
     var ø = require("euh-js");
     var Backbone = require("backbone");
     var HeadView = require("views/head");
-    var backboneCalendarEjs = require("text!ejs/backbone-calendar.ejs");
     var i18n = require("i18n!nls/i18n");
     var defaults = require("defaults");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 var api;
-var compiledBackboneCalendarEjs = _.template(backboneCalendarEjs);
 var initializeImpl;
 var renderImpl;
 var removeImpl;
@@ -40,13 +38,17 @@ renderImpl =
     ø.pil("Backbone.Calendar.render() >>>");
     this.$el
       .addClass("bc js-bc")
-      .html(
-        compiledBackboneCalendarEjs(
-          {
-            "model" : this.model,
-            "i18n" : i18n
-          }
-        )
+      .append(
+        $("<div>")
+          .addClass("bc-head js-bc-head")
+      )
+      .append(
+        $("<div>")
+          .addClass("bc-body js-bc-body")
+      )
+      .append(
+        $("<div>")
+          .addClass("bc-foot js-bc-foot")
       );
     if (this.optHeader) {
       this.headView = new HeadView(

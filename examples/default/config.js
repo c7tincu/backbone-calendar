@@ -12,9 +12,8 @@ requirejs.config(
     /* Set the paths to use for all the third-party modules. */
     "paths" :
       {
-        /* RequireJS i18n! & text! plugins. */
+        /* RequireJS i18n! plugin. */
         "i18n" : "../../dist/lib/require-i18n",
-        "text" : "../../dist/lib/require-text",
         /* Fake euh.js. It’s not needed here anymore. */
         "euh-js" : "../../dist/lib/require",
         /* JSON 2. */

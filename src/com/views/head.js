@@ -7,13 +7,11 @@ define(
     /* Require the deps. */
     var ø = require("euh-js");
     var Backbone = require("backbone");
-    var headEjs = require("text!ejs/head.ejs");
     var i18n = require("i18n!nls/i18n");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 var api;
-var compiledHeadEjs = _.template(headEjs);
 var initializeImpl;
 var renderImpl;
 var removeImpl;
@@ -46,54 +44,60 @@ renderImpl =
   /* Renders the view. */
   function () {
     ø.pil("HeadView.render() >>>");
-    this.$el.html(
-      compiledHeadEjs(
-        {
-          "model" : this.model,
-          "i18n" : i18n
-        }
-      )
-    );
     _.each(
       [ "left", "center", "right" ],
       function (value) {
-        var htmlText = "";
+        var $value;
         var i;
         var j;
         var li;
         var lj;
 
+        this.$el.append(
+          $("<div>")
+            .addClass("bc-" + value + " js-bc-" + value)
+        );
+        $value = this.$el.find(".js-bc-" + value);
         for (i = 0, li = this[value].length; i < li; ++ i) {
           for (j = 0, lj = this[value][i].length; j < lj; ++ j) {
             switch (this[value][i][j]) {
               case "title" :
-                htmlText += "<span class=\"bc-title js-bc-title\">…</span>";
+                $value.append(
+                  $("<span>")
+                    .addClass("bc-title js-bc-title")
+                    .html("…")
+                );
                 break;
               case "now" :
-                htmlText +=
-                  "<button class=\"bc-now js-bc-now\">" +
-                  i18n.head.now +
-                  "</button>";
+                $value.append(
+                  $("<button>")
+                    .addClass("bc-now js-bc-now")
+                    .html(i18n.head.now)
+                );
                 break;
               case "prev" :
-                htmlText +=
-                  "<button class=\"bc-prev js-bc-prev\">" +
-                  i18n.head.prev +
-                  "</button>";
+                $value.append(
+                  $("<button>")
+                    .addClass("bc-prev js-bc-prev")
+                    .html(i18n.head.prev)
+                );
                 break;
               case "next" :
-                htmlText +=
-                  "<button class=\"bc-next js-bc-next\">" +
-                  i18n.head.next +
-                  "</button>";
+                $value.append(
+                  $("<button>")
+                    .addClass("bc-next js-bc-next")
+                    .html(i18n.head.next)
+                );
                 break;
             }
           }
           if (i !== li - 1) {
-            htmlText += "<span class=\"break js-break\"></span>";
+            $value.append(
+              $("<span>")
+                .addClass("bc-sep js-bc-sep")
+            );
           }
         }
-        this.$el.find(".js-bc-" + value).html(htmlText);
       },
       this
     );
@@ -107,6 +111,7 @@ removeImpl =
   /* Removes the view from the DOM. */
   function (jqEvent) {
     ø.pil("HeadView.remove() >>> ", jqEvent);
+    this.$el.html("");
     /* Prevent default event handling on buttons, anchors, etc. */
     jqEvent && jqEvent.preventDefault();
     /* Unbind all the events. */
