@@ -12,8 +12,11 @@ requirejs.config(
     /* Set the paths to use for all the third-party modules. */
     "paths" :
       {
-        /* euh.js. */
-        "euh-js" : "../../dist/lib/euh",
+        /* RequireJS i18n! & text! plugins. */
+        "i18n" : "../../dist/lib/require-i18n",
+        "text" : "../../dist/lib/require-text",
+        /* Fake euh.js. It’s not needed here anymore. */
+        "euh-js" : "../../dist/lib/require",
         /* JSON 2. */
         "json2" : "../../dist/lib/json2",
         /* jQuery. */
@@ -27,11 +30,6 @@ requirejs.config(
     /* Shim all the non-AMD-compliant modules. */
     "shim" :
       {
-        /* euh.js. */
-        "euh-js" :
-          {
-            "exports" : "ø"
-          },
         /* JSON 2. */
         "json2" :
           {

@@ -7,15 +7,13 @@ define(
     /* Require the deps. */
     var ø = require("euh-js");
     var Backbone = require("backbone");
-    var HeadView = require("views/head");
-    var backboneCalendarEjs = require("text!ejs/backbone-calendar.ejs");
+    var headEjs = require("text!ejs/head.ejs");
     var i18n = require("i18n!nls/i18n");
-    var defaults = require("defaults");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 var api;
-var compiledBackboneCalendarEjs = _.template(backboneCalendarEjs);
+var compiledHeadEjs = _.template(headEjs);
 var initializeImpl;
 var renderImpl;
 var removeImpl;
@@ -24,40 +22,81 @@ var events;
 initializeImpl =
   /* Invoked when the view is created. */
   function (opt) {
-    ø.pil("Backbone.Calendar.initialize() >>> ", opt);
+    ø.pil("HeadView.initialize() >>> ", opt);
     /* Bind `this` for all of the object’s function members.
        http://backbonejs.org/#FAQ-this */
     _.bindAll(this);
-    opt || (opt = {});
-    if (opt.header !== false) {
-      this.optHeader = opt.header || defaults.header
-    }
+    /* Parse options. */
+    _.each(
+      [ "left", "center", "right" ],
+      function (value) {
+        this[value] =
+          _.map(
+            opt[value].split(" "),
+            function (value) {
+              return value.split(",");
+            }
+          );
+      },
+      this
+    );
   };
 
 renderImpl =
   /* Renders the view. */
   function () {
-    ø.pil("Backbone.Calendar.render() >>>");
-    this.$el
-      .addClass("bc js-bc")
-      .html(
-        compiledBackboneCalendarEjs(
-          {
-            "model" : this.model,
-            "i18n" : i18n
+    ø.pil("HeadView.render() >>>");
+    this.$el.html(
+      compiledHeadEjs(
+        {
+          "model" : this.model,
+          "i18n" : i18n
+        }
+      )
+    );
+    _.each(
+      [ "left", "center", "right" ],
+      function (value) {
+        var htmlText = "";
+        var i;
+        var j;
+        var li;
+        var lj;
+
+        for (i = 0, li = this[value].length; i < li; ++ i) {
+          for (j = 0, lj = this[value][i].length; j < lj; ++ j) {
+            switch (this[value][i][j]) {
+              case "title" :
+                htmlText += "<span class=\"bc-title js-bc-title\">…</span>";
+                break;
+              case "now" :
+                htmlText +=
+                  "<button class=\"bc-now js-bc-now\">" +
+                  i18n.head.now +
+                  "</button>";
+                break;
+              case "prev" :
+                htmlText +=
+                  "<button class=\"bc-prev js-bc-prev\">" +
+                  i18n.head.prev +
+                  "</button>";
+                break;
+              case "next" :
+                htmlText +=
+                  "<button class=\"bc-next js-bc-next\">" +
+                  i18n.head.next +
+                  "</button>";
+                break;
+            }
           }
-        )
-      );
-    if (this.optHeader) {
-      this.headView = new HeadView(
-        _.extend(
-          this.optHeader,
-          {
-            "el" : this.$el.find(".js-bc-head")
+          if (i !== li - 1) {
+            htmlText += "<span class=\"break js-break\"></span>";
           }
-        )
-      ).render();
-    }
+        }
+        this.$el.find(".js-bc-" + value).html(htmlText);
+      },
+      this
+    );
     /* Rebind all the events. */
     this.delegateEvents();
     /* Return `this` for chained calls. */
@@ -67,9 +106,7 @@ renderImpl =
 removeImpl =
   /* Removes the view from the DOM. */
   function (jqEvent) {
-    ø.pil("Backbone.Calendar.remove() >>> ", jqEvent);
-    this.headView && this.headView.remove();
-    this.$el.html("").removeClass("bc js-bc");
+    ø.pil("HeadView.remove() >>> ", jqEvent);
     /* Prevent default event handling on buttons, anchors, etc. */
     jqEvent && jqEvent.preventDefault();
     /* Unbind all the events. */
@@ -99,7 +136,7 @@ api =
     }
   );
 
-Backbone.Calendar = api;
+return api;
 
 
 
