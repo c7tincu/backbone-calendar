@@ -7,6 +7,7 @@ module.exports =
 /* Load the tasks. */
 grunt.loadNpmTasks("grunt-exec");
 grunt.loadNpmTasks("grunt-contrib-uglify");
+grunt.loadNpmTasks("grunt-contrib-less");
 
 /* Configure the tasks. */
 grunt.initConfig(
@@ -44,6 +45,21 @@ grunt.initConfig(
               },
             "src" : [ "dist/backbone-calendar.js" ],
             "dest" : "dist/backbone-calendar.min.js"
+          }
+      },
+    "less" :
+      {
+        "production" :
+          {
+            /* Compile LESS to CSS, and compress CSS. */
+            "options" :
+              {
+                "yuicompress" : true
+              },
+            "files" :
+              {
+                "dist/backbone-calendar.min.css" : "src/style.less"
+              }
           }
       }
   }
@@ -86,7 +102,8 @@ grunt.registerTask(
   [
     "copy-lib",
     "exec",
-    "uglify"
+    "uglify",
+    "less"
   ]
 );
 

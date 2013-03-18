@@ -5,8 +5,9 @@
     /* Set the paths to use for all the third-party modules. */
     "paths" :
       {
-        /* RequireJS i18n! plugin. */
+        /* RequireJS i18n! & text plugins. */
         "i18n" : "../../components/requirejs-i18n/i18n",
+        "text" : "../../components/requirejs-text/text",
         /* euh.js. */
         "euh-js" : "../../components/euh.js/dist/euh",
         /* JSON 2. */
@@ -15,7 +16,11 @@
         "jquery" : "../../components/jquery/jquery",
         /* Underscore.js & Backbone.js. */
         "underscore" : "../../components/underscore/underscore",
-        "backbone" : "../../components/backbone/backbone"
+        "backbone" : "../../components/backbone/backbone",
+        /* less.js. */
+        "less" : "../../components/less.js/dist/less-1.3.3",
+        /* RequireJS style! plugin. */
+        "style" : "../style"
       },
     /* Shim all the non-AMD-compliant modules. */
     "shim" :
@@ -45,11 +50,14 @@
     "exclude" :
       [
         "i18n",
+        "text",
         "euh-js",
         "json2",
         "jquery",
         "underscore",
-        "backbone"
+        "backbone",
+        "less",
+        "style"
       ],
     /* Set the output file name. */
     "out" : "dist/backbone-calendar.js",

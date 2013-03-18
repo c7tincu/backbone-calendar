@@ -6,6 +6,7 @@ define(
 
     /* Require the deps. */
     require("backbone-calendar");
+    require("style!style.less");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
