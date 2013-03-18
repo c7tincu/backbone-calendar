@@ -6,12 +6,15 @@
     {
       "requirejs" : "latest",
       "requirejs-i18n" : "latest",
-      "requirejs-text" : "latest",
-      "euh.js" : "latest",
       "jquery" : "1.x",
       "json2" : "latest",
       "underscore" : "latest",
-      "backbone" : "latest",
+      "backbone" : "latest"
+    },
+  "devDependencies" :
+    {
+      "requirejs-text" : "latest",
+      "euh.js" : "latest",
       "less.js" : "latest"
     }
 }
