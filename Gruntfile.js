@@ -6,7 +6,6 @@ module.exports =
 
 /* Load the tasks. */
 grunt.loadNpmTasks("grunt-exec");
-grunt.loadNpmTasks("grunt-remove-logging");
 grunt.loadNpmTasks("grunt-contrib-uglify");
 
 /* Configure the tasks. */
@@ -16,38 +15,35 @@ grunt.initConfig(
       {
         "build" :
           {
-            /* Pass `optimize=none` in order to skip uglification.
-               Logging removal on uglified code is probably not possible. */
+            /* Run the RequireJS optimizer. */
             "command" :
+              /* Pass `optimize=none` in order to skip uglification.
+                 Logging removal on uglified code is probably not possible. */
               "node node_modules/requirejs/bin/r.js -o build.js optimize=none"
-          }
-      },
-    "removelogging" :
-      {
-        "dist" :
+          },
+        "strip" :
           {
-            "src" : "dist/backbone-calendar.log.js",
-            "dest" : "dist/backbone-calendar.js",
-            "options" :
-              {
-                "namespace" : "ø",
-                "methods" : [ "log", "fyi", "par", "pil" ]
-              }
+            /* Quick and dirty logging removal. */
+            "command" :
+              /* Remove all the lines containing `ø`. */
+              "sed -i \"/ø/ d\" dist/backbone-calendar.js; " +
+              /* Remove all the occurences of `,'euh-js'`. */
+              "sed -i \"s/,'euh-js'//g\" dist/backbone-calendar.js"
           }
       },
     "uglify" :
       {
         "build" :
           {
-            /* I can haz source maps? */
+            /* Generate source maps, and uglify code. */
             "options" :
               {
                 "sourceMap" : "dist/backbone-calendar.map.js",
                 "sourceMappingURL" : "backbone-calendar.map.js",
                 "sourceMapRoot" : ".."
               },
-              "src" : [ "dist/backbone-calendar.js" ],
-              "dest" : "dist/backbone-calendar.min.js"
+            "src" : [ "dist/backbone-calendar.js" ],
+            "dest" : "dist/backbone-calendar.min.js"
           }
       }
   }
@@ -90,7 +86,6 @@ grunt.registerTask(
   [
     "copy-lib",
     "exec",
-    "removelogging",
     "uglify"
   ]
 );

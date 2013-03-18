@@ -52,7 +52,7 @@
         "backbone"
       ],
     /* Set the output file name. */
-    "out" : "dist/backbone-calendar.log.js",
+    "out" : "dist/backbone-calendar.js",
     /* Set the component module name. */
     "name" : "backbone-calendar"
   }

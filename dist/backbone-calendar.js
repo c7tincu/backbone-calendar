@@ -15,12 +15,11 @@ define('nls/i18n',
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('views/head',['require','exports','module','euh-js','backbone','i18n!nls/i18n'],
+define('views/head',['require','exports','module','backbone','i18n!nls/i18n'],
   function (require, exports, module) {
     
 
     /* Require the deps. */
-    var ø = require("euh-js");
     var Backbone = require("backbone");
     var i18n = require("i18n!nls/i18n");
 
@@ -35,7 +34,6 @@ var events;
 initializeImpl =
   /* Invoked when the view is created. */
   function (opt) {
-    
     /* Bind `this` for all of the object’s function members.
        http://backbonejs.org/#FAQ-this */
     _.bindAll(this);
@@ -58,7 +56,6 @@ initializeImpl =
 renderImpl =
   /* Renders the view. */
   function () {
-    
     _.each(
       [ "left", "center", "right" ],
       function (value) {
@@ -125,7 +122,6 @@ renderImpl =
 removeImpl =
   /* Removes the view from the DOM. */
   function (jqEvent) {
-    
     this.$el.html("");
     /* Prevent default event handling on buttons, anchors, etc. */
     jqEvent && jqEvent.preventDefault();
@@ -200,12 +196,11 @@ return api;
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('backbone-calendar',['require','exports','module','euh-js','backbone','views/head','i18n!nls/i18n','defaults'],
+define('backbone-calendar',['require','exports','module','backbone','views/head','i18n!nls/i18n','defaults'],
   function (require, exports, module) {
     
 
     /* Require the deps. */
-    var ø = require("euh-js");
     var Backbone = require("backbone");
     var HeadView = require("views/head");
     var i18n = require("i18n!nls/i18n");
@@ -222,7 +217,6 @@ var events;
 initializeImpl =
   /* Invoked when the view is created. */
   function (opt) {
-    
     /* Bind `this` for all of the object’s function members.
        http://backbonejs.org/#FAQ-this */
     _.bindAll(this);
@@ -235,7 +229,6 @@ initializeImpl =
 renderImpl =
   /* Renders the view. */
   function () {
-    
     this.$el
       .addClass("bc js-bc")
       .append(
@@ -269,7 +262,6 @@ renderImpl =
 removeImpl =
   /* Removes the view from the DOM. */
   function (jqEvent) {
-    
     this.headView && this.headView.remove();
     this.$el.html("").removeClass("bc js-bc");
     /* Prevent default event handling on buttons, anchors, etc. */

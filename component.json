@@ -6,7 +6,6 @@
     {
       "requirejs" : "latest",
       "requirejs-i18n" : "latest",
-      "requirejs-text" : "latest",
       "euh.js" : "latest",
       "jquery" : "1.x",
       "json2" : "latest",

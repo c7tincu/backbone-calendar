@@ -14,8 +14,6 @@ requirejs.config(
       {
         /* RequireJS i18n! plugin. */
         "i18n" : "../../dist/lib/require-i18n",
-        /* Fake euh.js. It’s not needed here anymore. */
-        "euh-js" : "../../dist/lib/require",
         /* JSON 2. */
         "json2" : "../../dist/lib/json2",
         /* jQuery. */
