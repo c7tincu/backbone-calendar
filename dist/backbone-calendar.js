@@ -34,6 +34,7 @@ var events;
 initializeImpl =
   /* Invoked when the view is created. */
   function (opt) {
+    0;
     /* Bind `this` for all of the object’s function members.
        http://backbonejs.org/#FAQ-this */
     _.bindAll(this);
@@ -56,6 +57,7 @@ initializeImpl =
 renderImpl =
   /* Renders the view. */
   function () {
+    0;
     _.each(
       [ "left", "center", "right" ],
       function (value) {
@@ -122,6 +124,7 @@ renderImpl =
 removeImpl =
   /* Removes the view from the DOM. */
   function (jqEvent) {
+    0;
     this.$el.html("");
     /* Prevent default event handling on buttons, anchors, etc. */
     jqEvent && jqEvent.preventDefault();
@@ -217,6 +220,7 @@ var events;
 initializeImpl =
   /* Invoked when the view is created. */
   function (opt) {
+    0;
     /* Bind `this` for all of the object’s function members.
        http://backbonejs.org/#FAQ-this */
     _.bindAll(this);
@@ -229,6 +233,7 @@ initializeImpl =
 renderImpl =
   /* Renders the view. */
   function () {
+    0;
     this.$el
       .addClass("bc js-bc")
       .append(
@@ -262,6 +267,7 @@ renderImpl =
 removeImpl =
   /* Removes the view from the DOM. */
   function (jqEvent) {
+    0;
     this.headView && this.headView.remove();
     this.$el.html("").removeClass("bc js-bc");
     /* Prevent default event handling on buttons, anchors, etc. */

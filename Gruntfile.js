@@ -6,6 +6,7 @@ module.exports =
 
 /* Load the tasks. */
 grunt.loadNpmTasks("grunt-exec");
+grunt.loadNpmTasks("grunt-strip");
 grunt.loadNpmTasks("grunt-contrib-uglify");
 grunt.loadNpmTasks("grunt-contrib-less");
 
@@ -24,12 +25,25 @@ grunt.initConfig(
           },
         "strip" :
           {
-            /* Quick and dirty logging removal. */
+            /* Quick-and-dirty logging removal (part 2/2). */
             "command" :
-              /* Remove all the lines containing `ø`. */
-              "sed -i \"/ø/ d\" dist/backbone-calendar.js; " +
+              /* Remove all the lines containing `var ø`. */
+              "sed -i \"/var ø/ d\" dist/backbone-calendar.js; " +
               /* Remove all the occurences of `,'euh-js'`. */
               "sed -i \"s/,'euh-js'//g\" dist/backbone-calendar.js"
+          }
+      },
+    "strip" :
+      {
+        "main" :
+          /* Quick-and-dirty logging removal (part 1/2). */
+          {
+            "src" : "dist/backbone-calendar.js",
+            "options" :
+              {
+                "inline" : true,
+                "nodes" : [ "ø" ]
+              }
           }
       },
     "uglify" :
@@ -101,7 +115,9 @@ grunt.registerTask(
   "default",
   [
     "copy-lib",
-    "exec",
+    "exec:build",
+    "strip",
+    "exec:strip",
     "uglify",
     "less"
   ]

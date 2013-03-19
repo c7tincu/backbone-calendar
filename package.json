@@ -6,6 +6,7 @@
     {
       "grunt-cli" : "latest",
       "grunt-exec" : "latest",
+      "grunt-strip" : "latest",
       "grunt-contrib-uglify" : "latest",
       "grunt-contrib-less" : "latest",
       "requirejs" : "latest"
