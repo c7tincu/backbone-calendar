@@ -1,6 +1,6 @@
 [backbone-calendar](https://github.com/CristianTincu/backbone-calendar)
 ===============================================================================
 
-backbone-calendar is going to be a calendar component built with Backbone.js.
+backbone-calendar is a calendar component built with Backbone.js and RequireJS.
 
-This is a work in progress. Please don’t touch. ☺
+This is a work in progress. Please don’t touch, yet. ☺
