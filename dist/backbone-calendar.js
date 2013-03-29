@@ -38,17 +38,11 @@ initializeImpl =
     /* Bind `this` for all of the object’s function members.
        http://backbonejs.org/#FAQ-this */
     _.bindAll(this);
-    /* Parse options. */
+    opt || (opt = {});
     _.each(
       [ "left", "center", "right" ],
       function (value) {
-        this[value] =
-          _.map(
-            opt[value].split(" "),
-            function (value) {
-              return value.split(",");
-            }
-          );
+        this.config[value] = opt[value];
       },
       this
     );
@@ -63,53 +57,49 @@ renderImpl =
       function (value) {
         var $value;
         var i;
-        var j;
-        var li;
-        var lj;
+        var l;
 
         this.$el.append(
           $("<div>")
             .addClass("bc-" + value + " js-bc-" + value)
         );
         $value = this.$el.find(".js-bc-" + value);
-        for (i = 0, li = this[value].length; i < li; ++ i) {
-          for (j = 0, lj = this[value][i].length; j < lj; ++ j) {
-            switch (this[value][i][j]) {
-              case "title" :
-                $value.append(
-                  $("<span>")
-                    .addClass("bc-title js-bc-title")
-                    .html("…")
-                );
-                break;
-              case "now" :
-                $value.append(
-                  $("<button>")
-                    .addClass("bc-now js-bc-now")
-                    .html(i18n.head.now)
-                );
-                break;
-              case "prev" :
-                $value.append(
-                  $("<button>")
-                    .addClass("bc-prev js-bc-prev")
-                    .html(i18n.head.prev)
-                );
-                break;
-              case "next" :
-                $value.append(
-                  $("<button>")
-                    .addClass("bc-next js-bc-next")
-                    .html(i18n.head.next)
-                );
-                break;
-            }
-          }
-          if (i !== li - 1) {
-            $value.append(
-              $("<span>")
-                .addClass("bc-sep js-bc-sep")
-            );
+        for (i = 0, l = this.config[value].length; i < l; ++ i) {
+          switch (this.config[value][i]) {
+            case "title" :
+              $value.append(
+                $("<span>")
+                  .addClass("bc-title js-bc-title")
+                  .html("…")
+              );
+              break;
+            case "now" :
+              $value.append(
+                $("<button>")
+                  .addClass("bc-now js-bc-now")
+                  .html(i18n.head.now)
+              );
+              break;
+            case "prev" :
+              $value.append(
+                $("<button>")
+                  .addClass("bc-prev js-bc-prev")
+                  .html(i18n.head.prev)
+              );
+              break;
+            case "next" :
+              $value.append(
+                $("<button>")
+                  .addClass("bc-next js-bc-next")
+                  .html(i18n.head.next)
+              );
+              break;
+            case "sep" :
+              $value.append(
+                $("<span>")
+                  .addClass("bc-sep js-bc-sep")
+              );
+              break;
           }
         }
       },
@@ -148,6 +138,7 @@ events =
 api =
   Backbone.View.extend(
     {
+      "config" : {},
       "initialize" : initializeImpl,
       "render" : renderImpl,
       "remove" : removeImpl,
@@ -182,9 +173,9 @@ api =
   {
     "header" :
       {
-        "left" : "title",
-        "center" : "",
-        "right" : "now prev,next"
+        "left" : [ "title" ],
+        "center" : [],
+        "right" : [ "now", "sep", "prev", "next" ]
       }
   };
 
@@ -226,7 +217,7 @@ initializeImpl =
     _.bindAll(this);
     opt || (opt = {});
     if (opt.header !== false) {
-      this.optHeader = opt.header || defaults.header
+      this.config.header = opt.header || defaults.header;
     }
   };
 
@@ -248,10 +239,10 @@ renderImpl =
         $("<div>")
           .addClass("bc-foot js-bc-foot")
       );
-    if (this.optHeader) {
+    if (this.config.header) {
       this.headView = new HeadView(
         _.extend(
-          this.optHeader,
+          this.config.header,
           {
             "el" : this.$el.find(".js-bc-head")
           }
@@ -292,6 +283,8 @@ events =
 api =
   Backbone.View.extend(
     {
+      "config" : {},
+      "headView" : null,
       "initialize" : initializeImpl,
       "render" : renderImpl,
       "remove" : removeImpl,

@@ -16,9 +16,9 @@ api =
   {
     "header" :
       {
-        "left" : "title",
-        "center" : "",
-        "right" : "now prev,next"
+        "left" : [ "title" ],
+        "center" : [],
+        "right" : [ "now", "sep", "prev", "next" ]
       }
   };
 

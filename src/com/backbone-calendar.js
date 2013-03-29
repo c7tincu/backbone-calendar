@@ -28,7 +28,7 @@ initializeImpl =
     _.bindAll(this);
     opt || (opt = {});
     if (opt.header !== false) {
-      this.optHeader = opt.header || defaults.header
+      this.config.header = opt.header || defaults.header;
     }
   };
 
@@ -50,10 +50,10 @@ renderImpl =
         $("<div>")
           .addClass("bc-foot js-bc-foot")
       );
-    if (this.optHeader) {
+    if (this.config.header) {
       this.headView = new HeadView(
         _.extend(
-          this.optHeader,
+          this.config.header,
           {
             "el" : this.$el.find(".js-bc-head")
           }
@@ -94,6 +94,8 @@ events =
 api =
   Backbone.View.extend(
     {
+      "config" : {},
+      "headView" : null,
       "initialize" : initializeImpl,
       "render" : renderImpl,
       "remove" : removeImpl,
