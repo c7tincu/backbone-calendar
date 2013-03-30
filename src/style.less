@@ -1,11 +1,61 @@
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
+/* Dimensions
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* backbone-calendar Head height. */
+@bc-head-h: 2.5em;
+/* backbone-calendar Head sep width. */
+@bc-head-sep-w: 0.5em;
+
+  /* Button
+     ─────────────────────────────────────────────────────────────────────── */
+
+  /* Button padding. */
+  @button-p: 0.5em;
+  /* Button border width. */
+  @button-b-w: 1px;
+  /* Button border radius. */
+  @button-b-r: 4px;
+
+
+
 /* Colors
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-/* Background color. */
-@bg-c: #DDDDDD;
+  /* Button
+     ─────────────────────────────────────────────────────────────────────── */
+
+  /* Button top border color. */
+  @button-tp-b-c: rgba(0, 0, 0, 0.1);
+  /* Button right border color. */
+  @button-rt-b-c: rgba(0, 0, 0, 0.1);
+  /* Button bottom border color. */
+  @button-bm-b-c: rgba(0, 0, 0, 0.25);
+  /* Button left border color. */
+  @button-lt-b-c: rgba(0, 0, 0, 0.1);
+  /* Button background color. */
+  @button-bg-c: #F3F3F3;
+  /* Button top background color. */
+  @button-tp-bg-c: #FFFFFF;
+  /* Button bottom background color. */
+  @button-bm-bg-c: #E7E7E7;
+  /* Button color. */
+  @button-c: #333333;
+
+
+
+/* Typography
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+  /* Button
+     ─────────────────────────────────────────────────────────────────────── */
+
+  /* Button font size. */
+  @button-f-s: 0.875em;
+  /* Button line height. */
+  @button-l-h: 1.75em;
 
 
 
@@ -13,8 +63,166 @@
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 .bc {
-  background-color: @bg-c;
+
+  .mx-disable-text-selection;
+
+  button {
+    margin: 0;
+    padding: 0;
+    padding-right: @button-p;
+    padding-left: @button-p;
+    border: @button-b-w solid;
+    border-top-color: @button-tp-b-c;
+    border-right-color: @button-rt-b-c;
+    border-bottom-color: @button-bm-b-c;
+    border-left-color: @button-lt-b-c;
+    .mx-b-r(@button-b-r);
+    background-color: @button-bg-c;
+    .mx-tp-to-bm-g(@button-tp-bg-c, @button-bm-bg-c);
+    color: @button-c;
+    font-size: @button-f-s;
+    line-height: @button-l-h;
+  }
+
+  /*div*/ > .bc-head {
+
+    /*div*/ > .bc-left,
+    /*div*/ > .bc-center,
+    /*div*/ > .bc-right {
+
+      float: left;
+      overflow: hidden;
+      height: @bc-head-h;
+      max-height: @bc-head-h;
+      text-align: center;
+
+      > button {
+        display: inline-block;
+      }
+
+      /*span*/ > .bc-sep {
+        display: inline-block;
+        width: @bc-head-sep-w;
+      }
+
+    } /*div > .bc-left, div > .bc-center, div > .bc-right*/
+
+    /*div*/ > .bc-left,
+    /*div*/ > .bc-right {
+      width: 40%;
+    }
+
+    /*div*/ > .bc-center {
+      width: 20%;
+    }
+
+  } /*div > .bc-head*/
+
+} /*.bc*/
+
+
+
+/* Mixins
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Border radius. */
+.mx-b-r (@r) {
+  -webkit-border-radius: @r;
+     -moz-border-radius: @r;
+          border-radius: @r;
 }
+
+/* Border top right radius. */
+.mx-b-tp-rt-r (@r) {
+  -webkit-border-top-right-radius: @r;
+     -moz-border-radius-topright: @r;
+          border-top-right-radius: @r;
+}
+
+/* Border bottom right radius. */
+.mx-b-bm-rt-r (@r) {
+  -webkit-border-bottom-right-radius: @r;
+     -moz-border-radius-bottomright: @r;
+          border-bottom-right-radius: @r;
+}
+
+/* Border bottom left radius. */
+.mx-b-bm-lt-r (@r) {
+  -webkit-border-bottom-left-radius: @r;
+     -moz-border-radius-bottomleft: @r;
+          border-bottom-left-radius: @r;
+}
+
+/* Border top left radius. */
+.mx-b-tp-lt-r (@r) {
+  -webkit-border-top-left-radius: @r;
+     -moz-border-radius-topleft: @r;
+          border-top-left-radius: @r;
+}
+
+/* Top to bottom gradient. */
+.mx-tp-to-bm-g (@tp-c, @bm-c) {
+  background-image: -webkit-linear-gradient(top, @tp-c, @bm-c);
+  background-image:    -moz-linear-gradient(top, @tp-c, @bm-c);
+  background-image:         linear-gradient(to bottom, @tp-c, @bm-c);
+}
+
+/* Bottom to top gradient. */
+.mx-bm-to-tp-g (@bm-c, @tp-c) {
+  .mx-tp-to-bm-g(@tp-c, @bm-c);
+}
+
+/* Left to right gradient. */
+.mx-lt-to-rt-g (@lt-c, @rt-c) {
+  background-image: -webkit-linear-gradient(left, @lt-c, @rt-c);
+  background-image:    -moz-linear-gradient(left, @lt-c, @rt-c);
+  background-image:         linear-gradient(to right, @lt-c, @rt-c);
+}
+
+/* Right to left gradient. */
+.mx-rt-to-lt-g (@rt-c, @lt-c) {
+  .mx-lt-to-rt-g(@lt-c, @rt-c);
+}
+
+/* Disable text selection. */
+.mx-disable-text-selection {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+
+
+/* Abbreviations
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/*
+ru = reference unit
+tp = top
+rt = right
+bm = bottom
+lt = left
+w  = width
+h  = height
+b  = border
+r  = radius
+bg = background
+sh = shadow
+c  = color
+t  = text
+f  = font
+s  = size
+l  = line
+mx = mixin
+g  = gradient
+hl = horizontal
+vl = vertical
+sp = sprite
+up = up
+dn = down
+m  = margin
+p  = padding
+*/
 
 
 

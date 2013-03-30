@@ -1,4 +1,47 @@
 
+/* This is the Basic AMD Hybrid Format.
+   http://addyosmani.com/writing-modular-js/ */
+define('models/main',['require','exports','module','backbone'],
+  function (require, exports, module) {
+    
+
+    /* Require the deps. */
+    var Backbone = require("backbone");
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+var api;
+var initializeImpl;
+
+initializeImpl =
+  /* Invoked when the model is created. */
+  function (attr, opt) {
+    0;
+    /* Bind `this` for all of the object’s function members.
+       http://backbonejs.org/#FAQ-this */
+    _.bindAll(this);
+  };
+
+
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+api =
+  Backbone.Model.extend(
+    {
+      "initialize" : initializeImpl
+    }
+  );
+
+return api;
+
+
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ .·. ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+  }
+);
+
 define('nls/i18n',
   {
     "root" :
@@ -6,8 +49,39 @@ define('nls/i18n',
         "head" :
           {
             "now" : "Now",
-            "prev" : "Prev",
-            "next" : "Next"
+            "prev" : "◂",
+            "next" : "▸"
+          },
+        "views" :
+          {
+            "day" :
+              {
+                "title" : "Day"
+              },
+            "agendaDay" :
+              {
+                "title" : "Day"
+              },
+            "week" :
+              {
+                "title" : "Week"
+              },
+            "agendaWeek" :
+              {
+                "title" : "Week"
+              },
+            "month" :
+              {
+                "title" : "Month"
+              },
+            "year" :
+              {
+                "title" : "Year"
+              },
+            "timeline" :
+              {
+                "title" : "Timeline"
+              }
           }
       }
   }
@@ -58,6 +132,7 @@ renderImpl =
         var $value;
         var i;
         var l;
+        var text;
 
         this.$el.append(
           $("<div>")
@@ -65,7 +140,8 @@ renderImpl =
         );
         $value = this.$el.find(".js-bc-" + value);
         for (i = 0, l = this.config[value].length; i < l; ++ i) {
-          switch (this.config[value][i]) {
+          text = this.config[value][i];
+          switch (text) {
             case "title" :
               $value.append(
                 $("<span>")
@@ -100,6 +176,20 @@ renderImpl =
                   .addClass("bc-sep js-bc-sep")
               );
               break;
+          }
+          if (_.has(i18n.views, text)) {
+            $value.append(
+              $("<button>")
+                .addClass(
+                  "bc-" + text + " js-bc-" + text +
+                  (
+                    this.model.get("currentView") === text ?
+                    " bc-selected js-bc-selected" :
+                    ""
+                  )
+                )
+                .html(i18n.views[text].title)
+            );
           }
         }
       },
@@ -176,7 +266,8 @@ api =
         "left" : [ "title" ],
         "center" : [],
         "right" : [ "now", "sep", "prev", "next" ]
-      }
+      },
+    "defaultView" : "month"
   };
 
 return api;
@@ -190,12 +281,13 @@ return api;
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('backbone-calendar',['require','exports','module','backbone','views/head','i18n!nls/i18n','defaults'],
+define('backbone-calendar',['require','exports','module','backbone','models/main','views/head','i18n!nls/i18n','defaults'],
   function (require, exports, module) {
     
 
     /* Require the deps. */
     var Backbone = require("backbone");
+    var MainModel = require("models/main");
     var HeadView = require("views/head");
     var i18n = require("i18n!nls/i18n");
     var defaults = require("defaults");
@@ -216,6 +308,12 @@ initializeImpl =
        http://backbonejs.org/#FAQ-this */
     _.bindAll(this);
     opt || (opt = {});
+    this.model =
+      new MainModel(
+        {
+          "currentView" : opt.defaultView || defaults.defaultView
+        }
+      );
     if (opt.header !== false) {
       this.config.header = opt.header || defaults.header;
     }
@@ -244,7 +342,8 @@ renderImpl =
         _.extend(
           this.config.header,
           {
-            "el" : this.$el.find(".js-bc-head")
+            "el" : this.$el.find(".js-bc-head"),
+            "model" : this.model
           }
         )
       ).render();
@@ -284,6 +383,7 @@ api =
   Backbone.View.extend(
     {
       "config" : {},
+      "model" : null,
       "headView" : null,
       "initialize" : initializeImpl,
       "render" : renderImpl,

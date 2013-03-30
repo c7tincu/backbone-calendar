@@ -44,6 +44,7 @@ renderImpl =
         var $value;
         var i;
         var l;
+        var text;
 
         this.$el.append(
           $("<div>")
@@ -51,7 +52,8 @@ renderImpl =
         );
         $value = this.$el.find(".js-bc-" + value);
         for (i = 0, l = this.config[value].length; i < l; ++ i) {
-          switch (this.config[value][i]) {
+          text = this.config[value][i];
+          switch (text) {
             case "title" :
               $value.append(
                 $("<span>")
@@ -86,6 +88,20 @@ renderImpl =
                   .addClass("bc-sep js-bc-sep")
               );
               break;
+          }
+          if (_.has(i18n.views, text)) {
+            $value.append(
+              $("<button>")
+                .addClass(
+                  "bc-" + text + " js-bc-" + text +
+                  (
+                    this.model.get("currentView") === text ?
+                    " bc-selected js-bc-selected" :
+                    ""
+                  )
+                )
+                .html(i18n.views[text].title)
+            );
           }
         }
       },

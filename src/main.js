@@ -23,7 +23,7 @@ new Backbone.Calendar(
       {
         "left" : [ "prev", "title", "next" ],
         "center" : [],
-        "right" : [ "now" ]
+        "right" : [ "now", "sep", "agendaDay", "agendaWeek", "month" ]
       }
   }
 ).render();

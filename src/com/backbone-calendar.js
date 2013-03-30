@@ -7,6 +7,7 @@ define(
     /* Require the deps. */
     var ø = require("euh-js");
     var Backbone = require("backbone");
+    var MainModel = require("models/main");
     var HeadView = require("views/head");
     var i18n = require("i18n!nls/i18n");
     var defaults = require("defaults");
@@ -27,6 +28,12 @@ initializeImpl =
        http://backbonejs.org/#FAQ-this */
     _.bindAll(this);
     opt || (opt = {});
+    this.model =
+      new MainModel(
+        {
+          "currentView" : opt.defaultView || defaults.defaultView
+        }
+      );
     if (opt.header !== false) {
       this.config.header = opt.header || defaults.header;
     }
@@ -55,7 +62,8 @@ renderImpl =
         _.extend(
           this.config.header,
           {
-            "el" : this.$el.find(".js-bc-head")
+            "el" : this.$el.find(".js-bc-head"),
+            "model" : this.model
           }
         )
       ).render();
@@ -95,6 +103,7 @@ api =
   Backbone.View.extend(
     {
       "config" : {},
+      "model" : null,
       "headView" : null,
       "initialize" : initializeImpl,
       "render" : renderImpl,

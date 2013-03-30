@@ -5,8 +5,39 @@ define(
         "head" :
           {
             "now" : "Now",
-            "prev" : "Prev",
-            "next" : "Next"
+            "prev" : "◂",
+            "next" : "▸"
+          },
+        "views" :
+          {
+            "day" :
+              {
+                "title" : "Day"
+              },
+            "agendaDay" :
+              {
+                "title" : "Day"
+              },
+            "week" :
+              {
+                "title" : "Week"
+              },
+            "agendaWeek" :
+              {
+                "title" : "Week"
+              },
+            "month" :
+              {
+                "title" : "Month"
+              },
+            "year" :
+              {
+                "title" : "Year"
+              },
+            "timeline" :
+              {
+                "title" : "Timeline"
+              }
           }
       }
   }

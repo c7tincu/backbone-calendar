@@ -107,6 +107,10 @@ grunt.registerTask(
       "components/backbone/backbone.js",
       "dist/lib/backbone.js"
     );
+    grunt.file.copy(
+      "components/normalize-css/normalize.css",
+      "dist/lib/normalize.css"
+    );
   }
 );
 

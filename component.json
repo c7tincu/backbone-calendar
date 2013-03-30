@@ -15,6 +15,7 @@
     {
       "requirejs-text" : "latest",
       "euh.js" : "latest",
-      "less.js" : "latest"
+      "less.js" : "latest",
+      "normalize-css" : "1.x"
     }
 }
