@@ -15,6 +15,8 @@ var api;
 var initializeImpl;
 var renderImpl;
 var removeImpl;
+var onModelChangeCurrentViewImpl;
+var onClickButtonImpl;
 var events;
 
 initializeImpl =
@@ -45,6 +47,8 @@ renderImpl =
         var i;
         var l;
         var text;
+        var $children;
+        var $child;
 
         this.$el.append(
           $("<div>")
@@ -89,6 +93,7 @@ renderImpl =
               );
               break;
           }
+          /* Append view buttons. */
           if (_.has(i18n.views, text)) {
             $value.append(
               $("<button>")
@@ -104,8 +109,30 @@ renderImpl =
             );
           }
         }
+        /* Adjust view buttons’ style. */
+        $children = $value.find("span, button");
+        l = $children.length;
+        if (l > 1) {
+          for (i = 0; i < l; ++ i) {
+            $child = $($children[i]);
+            if ($child.is("button")) {
+              if ($child.prev().is("button")) {
+                $child.addClass("bc-adjacent-left");
+              }
+              if ($child.next().is("button")) {
+                $child.addClass("bc-adjacent-right");
+              }
+            }
+          }
+        }
       },
       this
+    );
+    /* Start listening to outside events. */
+    this.listenTo(
+      this.model,
+      "change:currentView",
+      this.onModelChangeCurrentView
     );
     /* Rebind all the events. */
     this.delegateEvents();
@@ -128,9 +155,51 @@ removeImpl =
     return this;
   };
 
+onModelChangeCurrentViewImpl =
+  function (model, value, opt) {
+    ø.pil("HeadView.onModelChangeCurrentView() >>> ", model, value, opt);
+    this.$el.find(".js-bc-selected").removeClass("bc-selected js-bc-selected");
+    this.$el.find(".js-bc-" + value).addClass("bc-selected js-bc-selected");
+  };
+
+onClickButtonImpl =
+  function (jqEvent) {
+    var $target = $(jqEvent.target);
+
+    ø.pil("HeadView.onClickButton() >>> ", jqEvent);
+    if (! $target.hasClass("js-bc-selected")) {
+      if ($target.hasClass("js-bc-now")) {
+        /* … */
+      }
+      else
+      if ($target.hasClass("js-bc-prev")) {
+        /* … */
+      }
+      else
+      if ($target.hasClass("js-bc-next")) {
+        /* … */
+      }
+      else {
+        _.each(
+          _.keys(i18n.views),
+          function (value) {
+            if ($target.hasClass("js-bc-" + value)) {
+              this.model.set(
+                {
+                  "currentView" : value
+                }
+              );
+            }
+          },
+          this
+        );
+      }
+    }
+  };
+
 events =
   {
-    /* … */
+    "click button" : "onClickButton"
   };
 
 
@@ -144,6 +213,8 @@ api =
       "initialize" : initializeImpl,
       "render" : renderImpl,
       "remove" : removeImpl,
+      "onModelChangeCurrentView" : onModelChangeCurrentViewImpl,
+      "onClickButton" : onClickButtonImpl,
       "events" : events
     }
   );

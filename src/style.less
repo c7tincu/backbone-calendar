@@ -18,6 +18,12 @@
   @button-b-w: 1px;
   /* Button border radius. */
   @button-b-r: 4px;
+  /* Button selected shadow horizontal offset. */
+  @button-selected-sh-hl-offset: 0;
+  /* Button selected shadow vertical offset. */
+  @button-selected-sh-vl-offset: 2px;
+  /* Button selected shadow spread. */
+  @button-selected-sh-spread: 4px;
 
 
 
@@ -43,6 +49,12 @@
   @button-bm-bg-c: #E7E7E7;
   /* Button color. */
   @button-c: #333333;
+  /* Button hover background color. */
+  @button-hover-bg-c: #E7E7E7;
+  /* Button selected background color. */
+  @button-selected-bg-c: #BBBBBB;
+  /* Button selected shadow color. */
+  @button-selected-sh-c: rgba(0, 0, 0, 0.25);
 
 
 
@@ -64,7 +76,7 @@
 
 .bc {
 
-  .mx-disable-text-selection;
+  .mx-disable-t-selection;
 
   button {
     margin: 0;
@@ -82,6 +94,20 @@
     color: @button-c;
     font-size: @button-f-s;
     line-height: @button-l-h;
+  }
+
+  button:hover,
+  button:focus {
+    outline: 0;
+    background-color: @button-hover-bg-c;
+    background-image: none;
+  }
+
+  button.bc-selected,
+  button:active {
+    background-color: @button-selected-bg-c;
+    background-image: none;
+    .mx-box-sh(inset @button-selected-sh-hl-offset @button-selected-sh-vl-offset @button-selected-sh-spread @button-selected-sh-c);
   }
 
   /*div*/ > .bc-head {
@@ -103,6 +129,16 @@
       /*span*/ > .bc-sep {
         display: inline-block;
         width: @bc-head-sep-w;
+      }
+
+      /*button*/ > .bc-adjacent-left {
+        .mx-b-bm-lt-r(0);
+        .mx-b-tp-lt-r(0);
+      }
+
+      /*button*/ > .bc-adjacent-right {
+        .mx-b-tp-rt-r(0);
+        .mx-b-bm-rt-r(0);
       }
 
     } /*div > .bc-left, div > .bc-center, div > .bc-right*/
@@ -184,8 +220,15 @@
   .mx-lt-to-rt-g(@lt-c, @rt-c);
 }
 
+/* Box shadow. */
+.mx-box-sh (@arguments) {
+  -webkit-box-shadow: @arguments;
+     -moz-box-shadow: @arguments;
+          box-shadow: @arguments;
+}
+
 /* Disable text selection. */
-.mx-disable-text-selection {
+.mx-disable-t-selection {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
      -moz-user-select: none;
