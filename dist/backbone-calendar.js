@@ -334,8 +334,8 @@ api =
   {
     "header" :
       {
-        "left" : [ "title" ],
-        "center" : [],
+        "left" : [ "day", "week", "month" ],
+        "center" : [ "title" ],
         "right" : [ "now", "sep", "prev", "next" ]
       },
     "defaultView" : "month"

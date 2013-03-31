@@ -21,9 +21,9 @@ new Backbone.Calendar(
     "el" : $("#placeholder-2"),
     "header" :
       {
-        "left" : [ "prev", "title", "next" ],
-        "center" : [],
-        "right" : [ "now", "sep", "agendaDay", "agendaWeek", "month" ]
+        "left" : [ "now" ],
+        "center" : [ "prev", "title", "next" ],
+        "right" : [ "agendaDay", "agendaWeek", "month" ]
       }
   }
 ).render();
