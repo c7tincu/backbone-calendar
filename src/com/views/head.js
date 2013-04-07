@@ -7,6 +7,13 @@ define(
     /* Require the deps. */
     var ø = require("euh-js");
     var Backbone = require("backbone");
+    var BasicDayView = require("views/basic-day");
+    var AgendaDayView = require("views/agenda-day");
+    var BasicWeekView = require("views/basic-week");
+    var AgendaWeekView = require("views/agenda-week");
+    var MonthView = require("views/month");
+    var YearView = require("views/year");
+    var TimelineView = require("views/timeline");
     var i18n = require("i18n!nls/i18n");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -62,7 +69,10 @@ renderImpl =
               $value.append(
                 $("<span>")
                   .addClass("bc-title js-bc-title")
-                  .html("…")
+                  .html(
+                    this.config.viewNameToClass[this.model.get("currentView")]
+                      .prototype.formatTitle(this.model.get("currentDstr"))
+                  )
               );
               break;
             case "now" :
@@ -209,7 +219,19 @@ events =
 api =
   Backbone.View.extend(
     {
-      "config" : {},
+      "config" :
+        {
+          "viewNameToClass" :
+            {
+              "day" : BasicDayView,
+              "agendaDay" : AgendaDayView,
+              "week" : BasicWeekView,
+              "agendaWeek" : AgendaWeekView,
+              "month" : MonthView,
+              "year" : YearView,
+              "timeline" : TimelineView
+            }
+        },
       "initialize" : initializeImpl,
       "render" : renderImpl,
       "remove" : removeImpl,

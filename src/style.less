@@ -30,6 +30,9 @@
 /* Colors
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
+/* backbone-calendar Head title color. */
+@bc-head-title-c: #333333;
+
   /* Button
      ─────────────────────────────────────────────────────────────────────── */
 
@@ -60,6 +63,11 @@
 
 /* Typography
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* backbone-calendar Head title font size. */
+@bc-head-title-f-s: 0.875em;
+/* backbone-calendar Head title line height. */
+@bc-head-title-l-h: 2em;
 
   /* Button
      ─────────────────────────────────────────────────────────────────────── */
@@ -124,6 +132,14 @@
 
       > button {
         display: inline-block;
+      }
+
+      /*span*/ > .bc-title {
+        display: inline-block;
+        color: @bc-head-title-c;
+        font-size: @bc-head-title-f-s;
+        font-weight: bold;
+        line-height: @bc-head-title-l-h;
       }
 
       /*span*/ > .bc-sep {

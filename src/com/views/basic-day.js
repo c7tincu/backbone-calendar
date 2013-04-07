@@ -7,10 +7,7 @@ define(
     /* Require the deps. */
     var ø = require("euh-js");
     var Backbone = require("backbone");
-    var MainModel = require("models/main");
-    var HeadView = require("views/head");
     var i18n = require("i18n!nls/i18n");
-    var defaults = require("defaults");
     var τ = require("tau");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -20,61 +17,21 @@ var initializeImpl;
 var renderImpl;
 var removeImpl;
 var events;
+var formatTitleImpl;
 
 initializeImpl =
   /* Invoked when the view is created. */
   function (opt) {
-    var now;
-
-    ø.pil("Backbone.Calendar.initialize() >>> ", opt);
+    ø.pil("BasicDayView.initialize() >>> ", opt);
     /* Bind `this` for all of the object’s function members.
        http://backbonejs.org/#FAQ-this */
     _.bindAll(this);
-    opt || (opt = {});
-    /* There’ll be no other `Date` references from now on. */
-    now =  opt.now || τ.dateToDstr(new Date());
-    this.model =
-      new MainModel(
-        {
-          "now" : now,
-          "currentDstr" : now,
-          "currentView" : opt.defaultView || defaults.defaultView
-        }
-      );
-    if (opt.header !== false) {
-      this.config.header = opt.header || defaults.header;
-    }
   };
 
 renderImpl =
   /* Renders the view. */
   function () {
-    ø.pil("Backbone.Calendar.render() >>>");
-    this.$el
-      .addClass("bc js-bc")
-      .append(
-        $("<div>")
-          .addClass("bc-head js-bc-head")
-      )
-      .append(
-        $("<div>")
-          .addClass("bc-body js-bc-body")
-      )
-      .append(
-        $("<div>")
-          .addClass("bc-foot js-bc-foot")
-      );
-    if (this.config.header) {
-      this.headView = new HeadView(
-        _.extend(
-          this.config.header,
-          {
-            "el" : this.$el.find(".js-bc-head"),
-            "model" : this.model
-          }
-        )
-      ).render();
-    }
+    ø.pil("BasicDayView.render() >>>");
     /* Rebind all the events. */
     this.delegateEvents();
     /* Return `this` for chained calls. */
@@ -84,9 +41,7 @@ renderImpl =
 removeImpl =
   /* Removes the view from the DOM. */
   function (jqEvent) {
-    ø.pil("Backbone.Calendar.remove() >>> ", jqEvent);
-    this.headView && this.headView.remove();
-    this.$el.html("").removeClass("bc js-bc");
+    ø.pil("BasicDayView.remove() >>> ", jqEvent);
     /* Prevent default event handling on buttons, anchors, etc. */
     jqEvent && jqEvent.preventDefault();
     /* Unbind all the events. */
@@ -102,6 +57,12 @@ events =
     /* … */
   };
 
+formatTitleImpl =
+  function (dstr) {
+    ø.pil("BasicDayView.formatTitle() >>> ", dstr);
+    /* … */
+  };
+
 
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -109,17 +70,15 @@ events =
 api =
   Backbone.View.extend(
     {
-      "config" : {},
-      "model" : null,
-      "headView" : null,
       "initialize" : initializeImpl,
       "render" : renderImpl,
       "remove" : removeImpl,
-      "events" : events
+      "events" : events,
+      "formatTitle" : formatTitleImpl
     }
   );
 
-Backbone.Calendar = api;
+return api;
 
 
 
