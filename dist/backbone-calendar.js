@@ -122,6 +122,13 @@ var dstrSecondsImpl;
 var dstrMillisecondsImpl;
 var doesDstrHaveOffsetImpl;
 var dstrOffsetImpl;
+var addYearsToDstrImpl;
+var addMonthsToDstrImpl;
+var addDaysToDstrImpl;
+var addHoursToDstrImpl;
+var addMinutesToDstrImpl;
+var addSecondsToDstrImpl;
+var addMillisecondsToDstrImpl;
 
 padImpl =
   function (number) {
@@ -197,6 +204,59 @@ dstrOffsetImpl =
     return this.doesDstrHaveOffset(dstr) ? - dstr.slice(23, 26) : 0;
   };
 
+addYearsToDstrImpl =
+  function (dstr, delta) {
+    var fullYear = this.dstrFullYear(dstr);
+
+    fullYear += delta;
+    return (
+      "" + fullYear +
+      dstr.slice(4)
+    );
+  };
+
+addMonthsToDstrImpl =
+  function (dstr, delta) {
+    var fullYear = this.dstrFullYear(dstr);
+    var month = this.dstrMonth(dstr);
+
+    month += delta;
+    while (month > 11) {
+      ++ fullYear;
+      month -= 12;
+    }
+    return (
+      "" + fullYear + "-" +
+      this.pad(month + 1) +
+      dstr.slice(7)
+    );
+  };
+
+addDaysToDstrImpl =
+  function (dstr, delta) {
+    /* … */
+  };
+
+addHoursToDstrImpl =
+  function (dstr, delta) {
+    /* … */
+  };
+
+addMinutesToDstrImpl =
+  function (dstr, delta) {
+    /* … */
+  };
+
+addSecondsToDstrImpl =
+  function (dstr, delta) {
+    /* … */
+  };
+
+addMillisecondsToDstrImpl =
+  function (dstr, delta) {
+    /* … */
+  };
+
 
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -213,7 +273,14 @@ api =
     "dstrSeconds" : dstrSecondsImpl,
     "dstrMilliseconds" : dstrMillisecondsImpl,
     "doesDstrHaveOffset" : doesDstrHaveOffsetImpl,
-    "dstrOffset" : dstrOffsetImpl
+    "dstrOffset" : dstrOffsetImpl,
+    "addYearsToDstr" : addYearsToDstrImpl,
+    "addMonthsToDstr" : addMonthsToDstrImpl,
+    "addDaysToDstr" : addDaysToDstrImpl,
+    "addHoursToDstr" : addHoursToDstrImpl,
+    "addMinutesToDstr" : addMinutesToDstrImpl,
+    "addSecondsToDstr" : addSecondsToDstrImpl,
+    "addMillisecondsToDstr" : addMillisecondsToDstrImpl
   };
 
 return api;
@@ -227,7 +294,7 @@ return api;
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('views/basic-day',['require','exports','module','backbone','i18n!nls/i18n','tau'],
+define('views/basic',['require','exports','module','backbone','i18n!nls/i18n','tau'],
   function (require, exports, module) {
     
 
@@ -315,7 +382,72 @@ return api;
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('views/agenda-day',['require','exports','module','backbone','i18n!nls/i18n','tau'],
+define('views/basic-day',['require','exports','module','backbone','views/basic','i18n!nls/i18n','tau'],
+  function (require, exports, module) {
+    
+
+    /* Require the deps. */
+    var Backbone = require("backbone");
+    var BasicView = require("views/basic");
+    var i18n = require("i18n!nls/i18n");
+    var τ = require("tau");
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+var api;
+var initializeImpl;
+var renderImpl;
+var removeImpl;
+
+initializeImpl =
+  /* Invoked when the view is created. */
+  function (opt) {
+    0;
+    /* Call superclass method. */
+    BasicView.prototype.initialize.call(this, opt);
+  };
+
+renderImpl =
+  /* Renders the view. */
+  function () {
+    0;
+    /* Call superclass method. */
+    return BasicView.prototype.render.call(this);
+  };
+
+removeImpl =
+  /* Removes the view from the DOM. */
+  function (jqEvent) {
+    0;
+    /* Call superclass method. */
+    return BasicView.prototype.remove.call(this, jqEvent);
+  };
+
+
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+api =
+  BasicView.extend(
+    {
+      "initialize" : initializeImpl,
+      "render" : renderImpl,
+      "remove" : removeImpl
+    }
+  );
+
+return api;
+
+
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ .·. ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+  }
+);
+
+/* This is the Basic AMD Hybrid Format.
+   http://addyosmani.com/writing-modular-js/ */
+define('views/agenda',['require','exports','module','backbone','i18n!nls/i18n','tau'],
   function (require, exports, module) {
     
 
@@ -403,12 +535,13 @@ return api;
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('views/basic-week',['require','exports','module','backbone','i18n!nls/i18n','tau'],
+define('views/agenda-day',['require','exports','module','backbone','views/agenda','i18n!nls/i18n','tau'],
   function (require, exports, module) {
     
 
     /* Require the deps. */
     var Backbone = require("backbone");
+    var AgendaView = require("views/agenda");
     var i18n = require("i18n!nls/i18n");
     var τ = require("tau");
 
@@ -418,51 +551,29 @@ var api;
 var initializeImpl;
 var renderImpl;
 var removeImpl;
-var events;
-var formatTitleImpl;
 
 initializeImpl =
   /* Invoked when the view is created. */
   function (opt) {
     0;
-    /* Bind `this` for all of the object’s function members.
-       http://backbonejs.org/#FAQ-this */
-    _.bindAll(this);
+    /* Call superclass method. */
+    AgendaView.prototype.initialize.call(this, opt);
   };
 
 renderImpl =
   /* Renders the view. */
   function () {
     0;
-    /* Rebind all the events. */
-    this.delegateEvents();
-    /* Return `this` for chained calls. */
-    return this;
+    /* Call superclass method. */
+    return AgendaView.prototype.render.call(this);
   };
 
 removeImpl =
   /* Removes the view from the DOM. */
   function (jqEvent) {
     0;
-    /* Prevent default event handling on buttons, anchors, etc. */
-    jqEvent && jqEvent.preventDefault();
-    /* Unbind all the events. */
-    this.undelegateEvents();
-    /* Stop listening to outside events. */
-    this.stopListening();
-    /* Return `this` for chained calls. */
-    return this;
-  };
-
-events =
-  {
-    /* … */
-  };
-
-formatTitleImpl =
-  function (dstr) {
-    0;
-    /* … */
+    /* Call superclass method. */
+    return AgendaView.prototype.remove.call(this, jqEvent);
   };
 
 
@@ -470,13 +581,11 @@ formatTitleImpl =
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 api =
-  Backbone.View.extend(
+  AgendaView.extend(
     {
       "initialize" : initializeImpl,
       "render" : renderImpl,
-      "remove" : removeImpl,
-      "events" : events,
-      "formatTitle" : formatTitleImpl
+      "remove" : removeImpl
     }
   );
 
@@ -491,12 +600,13 @@ return api;
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('views/agenda-week',['require','exports','module','backbone','i18n!nls/i18n','tau'],
+define('views/basic-week',['require','exports','module','backbone','views/basic','i18n!nls/i18n','tau'],
   function (require, exports, module) {
     
 
     /* Require the deps. */
     var Backbone = require("backbone");
+    var BasicView = require("views/basic");
     var i18n = require("i18n!nls/i18n");
     var τ = require("tau");
 
@@ -506,51 +616,29 @@ var api;
 var initializeImpl;
 var renderImpl;
 var removeImpl;
-var events;
-var formatTitleImpl;
 
 initializeImpl =
   /* Invoked when the view is created. */
   function (opt) {
     0;
-    /* Bind `this` for all of the object’s function members.
-       http://backbonejs.org/#FAQ-this */
-    _.bindAll(this);
+    /* Call superclass method. */
+    BasicView.prototype.initialize.call(this, opt);
   };
 
 renderImpl =
   /* Renders the view. */
   function () {
     0;
-    /* Rebind all the events. */
-    this.delegateEvents();
-    /* Return `this` for chained calls. */
-    return this;
+    /* Call superclass method. */
+    return BasicView.prototype.render.call(this);
   };
 
 removeImpl =
   /* Removes the view from the DOM. */
   function (jqEvent) {
     0;
-    /* Prevent default event handling on buttons, anchors, etc. */
-    jqEvent && jqEvent.preventDefault();
-    /* Unbind all the events. */
-    this.undelegateEvents();
-    /* Stop listening to outside events. */
-    this.stopListening();
-    /* Return `this` for chained calls. */
-    return this;
-  };
-
-events =
-  {
-    /* … */
-  };
-
-formatTitleImpl =
-  function (dstr) {
-    0;
-    /* … */
+    /* Call superclass method. */
+    return BasicView.prototype.remove.call(this, jqEvent);
   };
 
 
@@ -558,13 +646,76 @@ formatTitleImpl =
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 api =
-  Backbone.View.extend(
+  BasicView.extend(
     {
       "initialize" : initializeImpl,
       "render" : renderImpl,
-      "remove" : removeImpl,
-      "events" : events,
-      "formatTitle" : formatTitleImpl
+      "remove" : removeImpl
+    }
+  );
+
+return api;
+
+
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ .·. ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+  }
+);
+
+/* This is the Basic AMD Hybrid Format.
+   http://addyosmani.com/writing-modular-js/ */
+define('views/agenda-week',['require','exports','module','backbone','views/agenda','i18n!nls/i18n','tau'],
+  function (require, exports, module) {
+    
+
+    /* Require the deps. */
+    var Backbone = require("backbone");
+    var AgendaView = require("views/agenda");
+    var i18n = require("i18n!nls/i18n");
+    var τ = require("tau");
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+var api;
+var initializeImpl;
+var renderImpl;
+var removeImpl;
+
+initializeImpl =
+  /* Invoked when the view is created. */
+  function (opt) {
+    0;
+    /* Call superclass method. */
+    AgendaView.prototype.initialize.call(this, opt);
+  };
+
+renderImpl =
+  /* Renders the view. */
+  function () {
+    0;
+    /* Call superclass method. */
+    return AgendaView.prototype.render.call(this);
+  };
+
+removeImpl =
+  /* Removes the view from the DOM. */
+  function (jqEvent) {
+    0;
+    /* Call superclass method. */
+    return AgendaView.prototype.remove.call(this, jqEvent);
+  };
+
+
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+api =
+  AgendaView.extend(
+    {
+      "initialize" : initializeImpl,
+      "render" : renderImpl,
+      "remove" : removeImpl
     }
   );
 
@@ -813,8 +964,20 @@ events =
 
 formatTitleImpl =
   function (dstr) {
+    var fullYear = τ.dstrFullYear(dstr);
+    var month = τ.dstrMonth(dstr);
+    var endDstr = τ.addMonthsToDstr(dstr, this.config.length - 1);
+    var endFullYear = τ.dstrFullYear(endDstr);
+    var endMonth = τ.dstrMonth(endDstr);
+
     0;
-    /* … */
+    return (
+      i18n.monthNames[month] + " " +
+      (fullYear === endFullYear ? "" : fullYear + " ") +
+      "&ndash; " +
+      i18n.monthNames[endMonth] + " " +
+      endFullYear
+    );
   };
 
 
@@ -824,6 +987,11 @@ formatTitleImpl =
 api =
   Backbone.View.extend(
     {
+      "config" :
+        {
+          /* Length of the timeline, in months. */
+          "length" : 3
+        },
       "initialize" : initializeImpl,
       "render" : renderImpl,
       "remove" : removeImpl,

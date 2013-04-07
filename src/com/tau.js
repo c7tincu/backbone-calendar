@@ -18,6 +18,13 @@ var dstrSecondsImpl;
 var dstrMillisecondsImpl;
 var doesDstrHaveOffsetImpl;
 var dstrOffsetImpl;
+var addYearsToDstrImpl;
+var addMonthsToDstrImpl;
+var addDaysToDstrImpl;
+var addHoursToDstrImpl;
+var addMinutesToDstrImpl;
+var addSecondsToDstrImpl;
+var addMillisecondsToDstrImpl;
 
 padImpl =
   function (number) {
@@ -93,6 +100,59 @@ dstrOffsetImpl =
     return this.doesDstrHaveOffset(dstr) ? - dstr.slice(23, 26) : 0;
   };
 
+addYearsToDstrImpl =
+  function (dstr, delta) {
+    var fullYear = this.dstrFullYear(dstr);
+
+    fullYear += delta;
+    return (
+      "" + fullYear +
+      dstr.slice(4)
+    );
+  };
+
+addMonthsToDstrImpl =
+  function (dstr, delta) {
+    var fullYear = this.dstrFullYear(dstr);
+    var month = this.dstrMonth(dstr);
+
+    month += delta;
+    while (month > 11) {
+      ++ fullYear;
+      month -= 12;
+    }
+    return (
+      "" + fullYear + "-" +
+      this.pad(month + 1) +
+      dstr.slice(7)
+    );
+  };
+
+addDaysToDstrImpl =
+  function (dstr, delta) {
+    /* … */
+  };
+
+addHoursToDstrImpl =
+  function (dstr, delta) {
+    /* … */
+  };
+
+addMinutesToDstrImpl =
+  function (dstr, delta) {
+    /* … */
+  };
+
+addSecondsToDstrImpl =
+  function (dstr, delta) {
+    /* … */
+  };
+
+addMillisecondsToDstrImpl =
+  function (dstr, delta) {
+    /* … */
+  };
+
 
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -109,7 +169,14 @@ api =
     "dstrSeconds" : dstrSecondsImpl,
     "dstrMilliseconds" : dstrMillisecondsImpl,
     "doesDstrHaveOffset" : doesDstrHaveOffsetImpl,
-    "dstrOffset" : dstrOffsetImpl
+    "dstrOffset" : dstrOffsetImpl,
+    "addYearsToDstr" : addYearsToDstrImpl,
+    "addMonthsToDstr" : addMonthsToDstrImpl,
+    "addDaysToDstr" : addDaysToDstrImpl,
+    "addHoursToDstr" : addHoursToDstrImpl,
+    "addMinutesToDstr" : addMinutesToDstrImpl,
+    "addSecondsToDstr" : addSecondsToDstrImpl,
+    "addMillisecondsToDstr" : addMillisecondsToDstrImpl
   };
 
 return api;
