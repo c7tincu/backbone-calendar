@@ -51,80 +51,82 @@ renderImpl =
       [ "left", "center", "right" ],
       function (value) {
         var $value;
-        var i;
-        var l;
-        var text;
         var $children;
-        var $child;
 
         this.$el.append(
           $("<div>")
             .addClass("bc-" + value + " js-bc-" + value)
         );
         $value = this.$el.find(".js-bc-" + value);
-        for (i = 0, l = this.config[value].length; i < l; ++ i) {
-          text = this.config[value][i];
-          switch (text) {
-            case "title" :
+        _.each(
+          this.config[value],
+          function (text) {
+            switch (text) {
+              case "title" :
+                $value.append(
+                  $("<span>")
+                    .addClass("bc-title js-bc-title")
+                    .html(
+                      this.config
+                        .viewNameToClass[this.model.get("currentView")]
+                        .prototype.formatTitle(this.model.get("currentDstr"))
+                    )
+                );
+                break;
+              case "now" :
+                $value.append(
+                  $("<button>")
+                    .addClass("bc-now js-bc-now")
+                    .html(i18n.head.now)
+                );
+                break;
+              case "prev" :
+                $value.append(
+                  $("<button>")
+                    .addClass("bc-prev js-bc-prev")
+                    .html(i18n.head.prev)
+                );
+                break;
+              case "next" :
+                $value.append(
+                  $("<button>")
+                    .addClass("bc-next js-bc-next")
+                    .html(i18n.head.next)
+                );
+                break;
+              case "sep" :
+                $value.append(
+                  $("<span>")
+                    .addClass("bc-sep js-bc-sep")
+                );
+                break;
+            }
+            /* Append view buttons. */
+            if (_.has(i18n.views, text)) {
               $value.append(
-                $("<span>")
-                  .addClass("bc-title js-bc-title")
-                  .html(
-                    this.config.viewNameToClass[this.model.get("currentView")]
-                      .prototype.formatTitle(this.model.get("currentDstr"))
+                $("<button>")
+                  .addClass(
+                    "bc-" + text + " js-bc-" + text +
+                    (
+                      this.model.get("currentView") === text ?
+                      " bc-selected js-bc-selected" :
+                      ""
+                    )
                   )
+                  .html(i18n.views[text].title)
               );
-              break;
-            case "now" :
-              $value.append(
-                $("<button>")
-                  .addClass("bc-now js-bc-now")
-                  .html(i18n.head.now)
-              );
-              break;
-            case "prev" :
-              $value.append(
-                $("<button>")
-                  .addClass("bc-prev js-bc-prev")
-                  .html(i18n.head.prev)
-              );
-              break;
-            case "next" :
-              $value.append(
-                $("<button>")
-                  .addClass("bc-next js-bc-next")
-                  .html(i18n.head.next)
-              );
-              break;
-            case "sep" :
-              $value.append(
-                $("<span>")
-                  .addClass("bc-sep js-bc-sep")
-              );
-              break;
-          }
-          /* Append view buttons. */
-          if (_.has(i18n.views, text)) {
-            $value.append(
-              $("<button>")
-                .addClass(
-                  "bc-" + text + " js-bc-" + text +
-                  (
-                    this.model.get("currentView") === text ?
-                    " bc-selected js-bc-selected" :
-                    ""
-                  )
-                )
-                .html(i18n.views[text].title)
-            );
-          }
-        }
+            }
+          },
+          this
+        );
         /* Adjust view buttons’ style. */
         $children = $value.find("span, button");
-        l = $children.length;
-        if (l > 1) {
-          for (i = 0; i < l; ++ i) {
-            $child = $($children[i]);
+        $children.length > 1 &&
+        _.each(
+          $children,
+          function (child) {
+            var $child = $(child);
+
             if ($child.is("button")) {
               if ($child.prev().is("button")) {
                 $child.addClass("bc-adjacent-left");
@@ -134,7 +136,7 @@ renderImpl =
               }
             }
           }
-        }
+        );
       },
       this
     );
