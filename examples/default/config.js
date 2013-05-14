@@ -14,6 +14,8 @@ requirejs.config(
       {
         /* RequireJS i18n! plugin. */
         "i18n" : "../../dist/lib/require-i18n",
+        /* tau.js. */
+        "tau-js" : "../../dist/lib/tau",
         /* JSON 2. */
         "json2" : "../../dist/lib/json2",
         /* jQuery. */
@@ -27,6 +29,11 @@ requirejs.config(
     /* Shim all the non-AMD-compliant modules. */
     "shim" :
       {
+        /* tau.js. */
+        "tau-js" :
+          {
+            "exports" : "Tau"
+          },
         /* JSON 2. */
         "json2" :
           {

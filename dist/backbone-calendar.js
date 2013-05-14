@@ -104,204 +104,13 @@ define('nls/i18n',
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('tau',['require','exports','module'],
-  function (require, exports, module) {
-    
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-
-var api;
-var padImpl;
-var dateToDstrImpl;
-var dstrFullYearImpl;
-var dstrMonthImpl;
-var dstrDateImpl;
-var dstrHoursImpl;
-var dstrMinutesImpl;
-var dstrSecondsImpl;
-var dstrMillisecondsImpl;
-var doesDstrHaveOffsetImpl;
-var dstrOffsetImpl;
-var addYearsToDstrImpl;
-var addMonthsToDstrImpl;
-var addDaysToDstrImpl;
-var addHoursToDstrImpl;
-var addMinutesToDstrImpl;
-var addSecondsToDstrImpl;
-var addMillisecondsToDstrImpl;
-
-padImpl =
-  function (number) {
-    return (number < 10 ? "0" : "") + number;
-  };
-
-dateToDstrImpl =
-  /* Converts a `Date` object to an ISO 8601 string
-  which contains the offset from UTC, unlike `Date#toISOString()`. */
-  function (date) {
-    var ofs = date.getTimezoneOffset() / 60;
-
-    return (
-      date.getFullYear() + "-" +
-      this.pad(date.getMonth() + 1) + "-" +
-      this.pad(date.getDate()) + "T" +
-      this.pad(date.getHours()) + ":" +
-      this.pad(date.getMinutes()) + ":" +
-      this.pad(date.getSeconds()) + "." +
-      ("" + (date.getMilliseconds() / 1000).toFixed(3)).slice(2, 5) +
-      (
-        ofs === 0 ?
-        "Z" :
-        (
-          ofs > 0 ? "-" + this.pad(ofs) : "+" + this.pad(- ofs)
-        ) + ":00"
-      )
-    );
-  };
-
-dstrFullYearImpl =
-  function (dstr) {
-    return + dstr.slice(0, 4);
-  };
-
-dstrMonthImpl =
-  function (dstr) {
-    return + dstr.slice(5, 7) - 1;
-  };
-
-dstrDateImpl =
-  function (dstr) {
-    return + dstr.slice(8, 10);
-  };
-
-dstrHoursImpl =
-  function (dstr) {
-    return + dstr.slice(11, 13);
-  };
-
-dstrMinutesImpl =
-  function (dstr) {
-    return + dstr.slice(14, 16);
-  };
-
-dstrSecondsImpl =
-  function (dstr) {
-    return + dstr.slice(17, 19);
-  };
-
-dstrMillisecondsImpl =
-  function (dstr) {
-    return + dstr.slice(20, 23);
-  };
-
-doesDstrHaveOffsetImpl =
-  function (dstr) {
-    return dstr.length === 29;
-  };
-
-dstrOffsetImpl =
-  function (dstr) {
-    return this.doesDstrHaveOffset(dstr) ? - dstr.slice(23, 26) : 0;
-  };
-
-addYearsToDstrImpl =
-  function (dstr, delta) {
-    var fullYear = this.dstrFullYear(dstr);
-
-    fullYear += delta;
-    return (
-      "" + fullYear +
-      dstr.slice(4)
-    );
-  };
-
-addMonthsToDstrImpl =
-  function (dstr, delta) {
-    var fullYear = this.dstrFullYear(dstr);
-    var month = this.dstrMonth(dstr);
-
-    month += delta;
-    while (month > 11) {
-      ++ fullYear;
-      month -= 12;
-    }
-    return (
-      "" + fullYear + "-" +
-      this.pad(month + 1) +
-      dstr.slice(7)
-    );
-  };
-
-addDaysToDstrImpl =
-  function (dstr, delta) {
-    /* … */
-  };
-
-addHoursToDstrImpl =
-  function (dstr, delta) {
-    /* … */
-  };
-
-addMinutesToDstrImpl =
-  function (dstr, delta) {
-    /* … */
-  };
-
-addSecondsToDstrImpl =
-  function (dstr, delta) {
-    /* … */
-  };
-
-addMillisecondsToDstrImpl =
-  function (dstr, delta) {
-    /* … */
-  };
-
-
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-
-api =
-  {
-    "pad" : padImpl,
-    "dateToDstr" : dateToDstrImpl,
-    "dstrFullYear" : dstrFullYearImpl,
-    "dstrMonth" : dstrMonthImpl,
-    "dstrDate" : dstrDateImpl,
-    "dstrHours" : dstrHoursImpl,
-    "dstrMinutes" : dstrMinutesImpl,
-    "dstrSeconds" : dstrSecondsImpl,
-    "dstrMilliseconds" : dstrMillisecondsImpl,
-    "doesDstrHaveOffset" : doesDstrHaveOffsetImpl,
-    "dstrOffset" : dstrOffsetImpl,
-    "addYearsToDstr" : addYearsToDstrImpl,
-    "addMonthsToDstr" : addMonthsToDstrImpl,
-    "addDaysToDstr" : addDaysToDstrImpl,
-    "addHoursToDstr" : addHoursToDstrImpl,
-    "addMinutesToDstr" : addMinutesToDstrImpl,
-    "addSecondsToDstr" : addSecondsToDstrImpl,
-    "addMillisecondsToDstr" : addMillisecondsToDstrImpl
-  };
-
-return api;
-
-
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ .·. ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-
-  }
-);
-
-/* This is the Basic AMD Hybrid Format.
-   http://addyosmani.com/writing-modular-js/ */
-define('views/basic',['require','exports','module','backbone','i18n!nls/i18n','tau'],
+define('views/basic',['require','exports','module','backbone','i18n!nls/i18n'],
   function (require, exports, module) {
     
 
     /* Require the deps. */
     var Backbone = require("backbone");
     var i18n = require("i18n!nls/i18n");
-    var τ = require("tau");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -351,7 +160,7 @@ events =
   };
 
 formatTitleImpl =
-  function (dstr) {
+  function (tau) {
     0;
     /* … */
   };
@@ -382,7 +191,7 @@ return api;
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('views/basic-day',['require','exports','module','backbone','views/basic','i18n!nls/i18n','tau'],
+define('views/basic-day',['require','exports','module','backbone','views/basic','i18n!nls/i18n'],
   function (require, exports, module) {
     
 
@@ -390,7 +199,6 @@ define('views/basic-day',['require','exports','module','backbone','views/basic',
     var Backbone = require("backbone");
     var BasicView = require("views/basic");
     var i18n = require("i18n!nls/i18n");
-    var τ = require("tau");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -447,14 +255,13 @@ return api;
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('views/agenda',['require','exports','module','backbone','i18n!nls/i18n','tau'],
+define('views/agenda',['require','exports','module','backbone','i18n!nls/i18n'],
   function (require, exports, module) {
     
 
     /* Require the deps. */
     var Backbone = require("backbone");
     var i18n = require("i18n!nls/i18n");
-    var τ = require("tau");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -504,7 +311,7 @@ events =
   };
 
 formatTitleImpl =
-  function (dstr) {
+  function (tau) {
     0;
     /* … */
   };
@@ -535,7 +342,7 @@ return api;
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('views/agenda-day',['require','exports','module','backbone','views/agenda','i18n!nls/i18n','tau'],
+define('views/agenda-day',['require','exports','module','backbone','views/agenda','i18n!nls/i18n'],
   function (require, exports, module) {
     
 
@@ -543,7 +350,6 @@ define('views/agenda-day',['require','exports','module','backbone','views/agenda
     var Backbone = require("backbone");
     var AgendaView = require("views/agenda");
     var i18n = require("i18n!nls/i18n");
-    var τ = require("tau");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -600,7 +406,7 @@ return api;
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('views/basic-week',['require','exports','module','backbone','views/basic','i18n!nls/i18n','tau'],
+define('views/basic-week',['require','exports','module','backbone','views/basic','i18n!nls/i18n'],
   function (require, exports, module) {
     
 
@@ -608,7 +414,6 @@ define('views/basic-week',['require','exports','module','backbone','views/basic'
     var Backbone = require("backbone");
     var BasicView = require("views/basic");
     var i18n = require("i18n!nls/i18n");
-    var τ = require("tau");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -665,7 +470,7 @@ return api;
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('views/agenda-week',['require','exports','module','backbone','views/agenda','i18n!nls/i18n','tau'],
+define('views/agenda-week',['require','exports','module','backbone','views/agenda','i18n!nls/i18n'],
   function (require, exports, module) {
     
 
@@ -673,7 +478,6 @@ define('views/agenda-week',['require','exports','module','backbone','views/agend
     var Backbone = require("backbone");
     var AgendaView = require("views/agenda");
     var i18n = require("i18n!nls/i18n");
-    var τ = require("tau");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -730,14 +534,13 @@ return api;
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('views/month',['require','exports','module','backbone','i18n!nls/i18n','tau'],
+define('views/month',['require','exports','module','backbone','i18n!nls/i18n'],
   function (require, exports, module) {
     
 
     /* Require the deps. */
     var Backbone = require("backbone");
     var i18n = require("i18n!nls/i18n");
-    var τ = require("tau");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -787,9 +590,9 @@ events =
   };
 
 formatTitleImpl =
-  function (dstr) {
+  function (tau) {
     0;
-    return i18n.monthNames[τ.dstrMonth(dstr)] + " " + τ.dstrFullYear(dstr);
+    return i18n.monthNames[tau.getUtcMonth()] + " " + tau.getUtcYear();
   };
 
 
@@ -818,14 +621,13 @@ return api;
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('views/year',['require','exports','module','backbone','i18n!nls/i18n','tau'],
+define('views/year',['require','exports','module','backbone','i18n!nls/i18n'],
   function (require, exports, module) {
     
 
     /* Require the deps. */
     var Backbone = require("backbone");
     var i18n = require("i18n!nls/i18n");
-    var τ = require("tau");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -875,9 +677,9 @@ events =
   };
 
 formatTitleImpl =
-  function (dstr) {
+  function (tau) {
     0;
-    return τ.dstrFullYear(dstr);
+    return tau.getUtcYear();
   };
 
 
@@ -906,14 +708,14 @@ return api;
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('views/timeline',['require','exports','module','backbone','i18n!nls/i18n','tau'],
+define('views/timeline',['require','exports','module','tau-js','backbone','i18n!nls/i18n'],
   function (require, exports, module) {
     
 
     /* Require the deps. */
+    var Tau = require("tau-js");
     var Backbone = require("backbone");
     var i18n = require("i18n!nls/i18n");
-    var τ = require("tau");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -963,20 +765,24 @@ events =
   };
 
 formatTitleImpl =
-  function (dstr) {
-    var fullYear = τ.dstrFullYear(dstr);
-    var month = τ.dstrMonth(dstr);
-    var endDstr = τ.addMonthsToDstr(dstr, this.config.length - 1);
-    var endFullYear = τ.dstrFullYear(endDstr);
-    var endMonth = τ.dstrMonth(endDstr);
+  function (tau) {
+    var year = tau.getUtcYear();
+    var month = tau.getUtcMonth();
+    var endTau;
+    var endYear;
+    var endMonth;
 
     0;
+    endTau =
+      new Tau().setUtcYear(year).setUtcMonth(month + this.config.length - 1);
+    endYear = endTau.getUtcYear();
+    endMonth = endTau.getUtcMonth();
     return (
       i18n.monthNames[month] + " " +
-      (fullYear === endFullYear ? "" : fullYear + " ") +
+      (year === endYear ? "" : year + " ") +
       "&ndash; " +
       i18n.monthNames[endMonth] + " " +
-      endFullYear
+      endYear
     );
   };
 
@@ -1079,7 +885,7 @@ renderImpl =
                     .html(
                       this.config
                         .viewNameToClass[this.model.get("currentView")]
-                        .prototype.formatTitle(this.model.get("currentDstr"))
+                        .prototype.formatTitle(this.model.get("currentTau"))
                     )
                 );
                 break;
@@ -1298,17 +1104,17 @@ return api;
 
 /* This is the Basic AMD Hybrid Format.
    http://addyosmani.com/writing-modular-js/ */
-define('backbone-calendar',['require','exports','module','backbone','models/main','views/head','i18n!nls/i18n','defaults','tau'],
+define('backbone-calendar',['require','exports','module','tau-js','backbone','models/main','views/head','i18n!nls/i18n','defaults'],
   function (require, exports, module) {
     
 
     /* Require the deps. */
+    var Tau = require("tau-js");
     var Backbone = require("backbone");
     var MainModel = require("models/main");
     var HeadView = require("views/head");
     var i18n = require("i18n!nls/i18n");
     var defaults = require("defaults");
-    var τ = require("tau");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -1328,13 +1134,28 @@ initializeImpl =
        http://backbonejs.org/#FAQ-this */
     _.bindAll(this);
     opt || (opt = {});
-    /* There’ll be no other `Date` references from now on. */
-    now =  opt.now || τ.dateToDstr(new Date());
+    now =
+      opt.now ||
+      (
+        /* There’ll be no other `Date` references from now on. */
+        function (date) {
+          return (
+            new Tau()
+              .setUtcYear(date.getUTCFullYear())
+              .setUtcMonth(date.getUTCMonth())
+              .setUtcDate(date.getUTCDate())
+              .setUtcHours(date.getUTCHours())
+              .setUtcMinutes(date.getUTCMinutes())
+              .setUtcSeconds(date.getUTCSeconds())
+              .setUtcMilliseconds(date.getUTCMilliseconds())
+          );
+        }
+      )(new Date());
     this.model =
       new MainModel(
         {
           "now" : now,
-          "currentDstr" : now,
+          "currentTau" : now,
           "currentView" : opt.defaultView || defaults.defaultView
         }
       );
@@ -1382,7 +1203,10 @@ removeImpl =
   /* Removes the view from the DOM. */
   function (jqEvent) {
     0;
-    this.headView && this.headView.remove();
+    if (this.headView) {
+      this.headView.remove();
+      this.headView = null;
+    }
     this.$el.html("").removeClass("bc js-bc");
     /* Prevent default event handling on buttons, anchors, etc. */
     jqEvent && jqEvent.preventDefault();

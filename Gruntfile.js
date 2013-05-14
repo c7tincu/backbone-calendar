@@ -92,6 +92,10 @@ grunt.registerTask(
       "dist/lib/require-i18n.js"
     );
     grunt.file.copy(
+      "components/tau.js/dist/tau.js",
+      "dist/lib/tau.js"
+    );
+    grunt.file.copy(
       "components/json2/json2.js",
       "dist/lib/json2.js"
     );

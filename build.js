@@ -10,6 +10,8 @@
         "text" : "../../components/requirejs-text/text",
         /* euh.js. */
         "euh-js" : "../../components/euh.js/dist/euh",
+        /* tau.js. */
+        "tau-js" : "../../components/tau.js/dist/tau",
         /* JSON 2. */
         "json2" : "../../components/json2/json2",
         /* jQuery. */
@@ -29,6 +31,11 @@
         "euh-js" :
           {
             "exports" : "ø"
+          },
+        /* tau.js. */
+        "tau-js" :
+          {
+            "exports" : "Tau"
           },
         /* JSON 2. */
         "json2" :
@@ -52,6 +59,7 @@
         "i18n",
         "text",
         "euh-js",
+        "tau-js",
         "json2",
         "jquery",
         "underscore",

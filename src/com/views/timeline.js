@@ -6,9 +6,9 @@ define(
 
     /* Require the deps. */
     var ø = require("euh-js");
+    var Tau = require("tau-js");
     var Backbone = require("backbone");
     var i18n = require("i18n!nls/i18n");
-    var τ = require("tau");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -58,20 +58,24 @@ events =
   };
 
 formatTitleImpl =
-  function (dstr) {
-    var fullYear = τ.dstrFullYear(dstr);
-    var month = τ.dstrMonth(dstr);
-    var endDstr = τ.addMonthsToDstr(dstr, this.config.length - 1);
-    var endFullYear = τ.dstrFullYear(endDstr);
-    var endMonth = τ.dstrMonth(endDstr);
+  function (tau) {
+    var year = tau.getUtcYear();
+    var month = tau.getUtcMonth();
+    var endTau;
+    var endYear;
+    var endMonth;
 
-    ø.pil("TimelineView.formatTitle() >>> ", dstr);
+    ø.pil("TimelineView.formatTitle() >>> ", tau);
+    endTau =
+      new Tau().setUtcYear(year).setUtcMonth(month + this.config.length - 1);
+    endYear = endTau.getUtcYear();
+    endMonth = endTau.getUtcMonth();
     return (
       i18n.monthNames[month] + " " +
-      (fullYear === endFullYear ? "" : fullYear + " ") +
+      (year === endYear ? "" : year + " ") +
       "&ndash; " +
       i18n.monthNames[endMonth] + " " +
-      endFullYear
+      endYear
     );
   };
 

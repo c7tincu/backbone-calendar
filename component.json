@@ -6,6 +6,7 @@
     {
       "requirejs" : "latest",
       "requirejs-i18n" : "latest",
+      "tau.js" : "latest",
       "jquery" : "1.x",
       "json2" : "latest",
       "underscore" : "latest",

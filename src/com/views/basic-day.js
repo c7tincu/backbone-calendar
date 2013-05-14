@@ -9,7 +9,6 @@ define(
     var Backbone = require("backbone");
     var BasicView = require("views/basic");
     var i18n = require("i18n!nls/i18n");
-    var τ = require("tau");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 

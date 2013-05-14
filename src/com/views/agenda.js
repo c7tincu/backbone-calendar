@@ -8,7 +8,6 @@ define(
     var ø = require("euh-js");
     var Backbone = require("backbone");
     var i18n = require("i18n!nls/i18n");
-    var τ = require("tau");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -58,8 +57,8 @@ events =
   };
 
 formatTitleImpl =
-  function (dstr) {
-    ø.pil("AgendaWeekView.formatTitle() >>> ", dstr);
+  function (tau) {
+    ø.pil("AgendaWeekView.formatTitle() >>> ", tau);
     /* … */
   };
 

@@ -6,12 +6,12 @@ define(
 
     /* Require the deps. */
     var ø = require("euh-js");
+    var Tau = require("tau-js");
     var Backbone = require("backbone");
     var MainModel = require("models/main");
     var HeadView = require("views/head");
     var i18n = require("i18n!nls/i18n");
     var defaults = require("defaults");
-    var τ = require("tau");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -31,13 +31,28 @@ initializeImpl =
        http://backbonejs.org/#FAQ-this */
     _.bindAll(this);
     opt || (opt = {});
-    /* There’ll be no other `Date` references from now on. */
-    now =  opt.now || τ.dateToDstr(new Date());
+    now =
+      opt.now ||
+      (
+        /* There’ll be no other `Date` references from now on. */
+        function (date) {
+          return (
+            new Tau()
+              .setUtcYear(date.getUTCFullYear())
+              .setUtcMonth(date.getUTCMonth())
+              .setUtcDate(date.getUTCDate())
+              .setUtcHours(date.getUTCHours())
+              .setUtcMinutes(date.getUTCMinutes())
+              .setUtcSeconds(date.getUTCSeconds())
+              .setUtcMilliseconds(date.getUTCMilliseconds())
+          );
+        }
+      )(new Date());
     this.model =
       new MainModel(
         {
           "now" : now,
-          "currentDstr" : now,
+          "currentTau" : now,
           "currentView" : opt.defaultView || defaults.defaultView
         }
       );
@@ -85,7 +100,10 @@ removeImpl =
   /* Removes the view from the DOM. */
   function (jqEvent) {
     ø.pil("Backbone.Calendar.remove() >>> ", jqEvent);
-    this.headView && this.headView.remove();
+    if (this.headView) {
+      this.headView.remove();
+      this.headView = null;
+    }
     this.$el.html("").removeClass("bc js-bc");
     /* Prevent default event handling on buttons, anchors, etc. */
     jqEvent && jqEvent.preventDefault();

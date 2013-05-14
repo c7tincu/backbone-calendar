@@ -69,7 +69,7 @@ renderImpl =
                     .html(
                       this.config
                         .viewNameToClass[this.model.get("currentView")]
-                        .prototype.formatTitle(this.model.get("currentDstr"))
+                        .prototype.formatTitle(this.model.get("currentTau"))
                     )
                 );
                 break;

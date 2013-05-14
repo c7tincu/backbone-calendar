@@ -8,7 +8,6 @@ define(
     var ø = require("euh-js");
     var Backbone = require("backbone");
     var i18n = require("i18n!nls/i18n");
-    var τ = require("tau");
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -58,9 +57,9 @@ events =
   };
 
 formatTitleImpl =
-  function (dstr) {
-    ø.pil("MonthView.formatTitle() >>> ", dstr);
-    return i18n.monthNames[τ.dstrMonth(dstr)] + " " + τ.dstrFullYear(dstr);
+  function (tau) {
+    ø.pil("MonthView.formatTitle() >>> ", tau);
+    return i18n.monthNames[tau.getUtcMonth()] + " " + tau.getUtcYear();
   };
 
 
