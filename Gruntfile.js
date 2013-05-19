@@ -63,6 +63,19 @@ grunt.initConfig(
       },
     "less" :
       {
+        "development" :
+          {
+            /* Compile LESS to CSS, and compress CSS,
+               but keep it readable. */
+            "options" :
+              {
+                "compress" : true
+              },
+            "files" :
+              {
+                "dist/backbone-calendar.css" : "src/style.less"
+              }
+          },
         "production" :
           {
             /* Compile LESS to CSS, and compress CSS. */
@@ -127,7 +140,8 @@ grunt.registerTask(
     "strip",
     "exec:strip",
     "uglify",
-    "less"
+    "less:development",
+    "less:production"
   ]
 );
 
