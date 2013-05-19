@@ -892,21 +892,21 @@ renderImpl =
               case "now" :
                 $value.append(
                   $("<button>")
-                    .addClass("bc-now js-bc-now")
+                    .addClass("bc-button bc-now js-bc-now")
                     .html(i18n.head.now)
                 );
                 break;
               case "prev" :
                 $value.append(
                   $("<button>")
-                    .addClass("bc-prev js-bc-prev")
+                    .addClass("bc-button bc-prev js-bc-prev")
                     .html(i18n.head.prev)
                 );
                 break;
               case "next" :
                 $value.append(
                   $("<button>")
-                    .addClass("bc-next js-bc-next")
+                    .addClass("bc-button bc-next js-bc-next")
                     .html(i18n.head.next)
                 );
                 break;
@@ -922,10 +922,10 @@ renderImpl =
               $value.append(
                 $("<button>")
                   .addClass(
-                    "bc-" + text + " js-bc-" + text +
+                    "bc-button bc-" + text + " js-bc-" + text +
                     (
                       this.model.get("currentView") === text ?
-                      " bc-selected js-bc-selected" :
+                      " bc-st-selected js-bc-st-selected" :
                       ""
                     )
                   )
@@ -945,10 +945,10 @@ renderImpl =
 
             if ($child.is("button")) {
               if ($child.prev().is("button")) {
-                $child.addClass("bc-adjacent-left");
+                $child.addClass("bc-st-adjacent-left");
               }
               if ($child.next().is("button")) {
-                $child.addClass("bc-adjacent-right");
+                $child.addClass("bc-st-adjacent-right");
               }
             }
           }
@@ -986,8 +986,10 @@ removeImpl =
 onModelChangeCurrentViewImpl =
   function (model, value, opt) {
     0;
-    this.$el.find(".js-bc-selected").removeClass("bc-selected js-bc-selected");
-    this.$el.find(".js-bc-" + value).addClass("bc-selected js-bc-selected");
+    this.$el.find(".js-bc-st-selected")
+      .removeClass("bc-st-selected js-bc-st-selected");
+    this.$el.find(".js-bc-" + value)
+      .addClass("bc-st-selected js-bc-st-selected");
   };
 
 onClickButtonImpl =
@@ -995,7 +997,7 @@ onClickButtonImpl =
     var $target = $(jqEvent.target);
 
     0;
-    if (! $target.hasClass("js-bc-selected")) {
+    if (! $target.hasClass("js-bc-st-selected")) {
       if ($target.hasClass("js-bc-now")) {
         /* … */
       }

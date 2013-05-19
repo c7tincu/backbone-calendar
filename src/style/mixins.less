@@ -1,0 +1,99 @@
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Border radius. */
+.mx-b-r (@r) {
+  -webkit-border-radius: @r;
+     -moz-border-radius: @r;
+          border-radius: @r;
+}
+
+/* Border top right radius. */
+.mx-b-tp-rt-r (@r) {
+  -webkit-border-top-right-radius: @r;
+     -moz-border-radius-topright: @r;
+          border-top-right-radius: @r;
+}
+
+/* Border bottom right radius. */
+.mx-b-bm-rt-r (@r) {
+  -webkit-border-bottom-right-radius: @r;
+     -moz-border-radius-bottomright: @r;
+          border-bottom-right-radius: @r;
+}
+
+/* Border bottom left radius. */
+.mx-b-bm-lt-r (@r) {
+  -webkit-border-bottom-left-radius: @r;
+     -moz-border-radius-bottomleft: @r;
+          border-bottom-left-radius: @r;
+}
+
+/* Border top left radius. */
+.mx-b-tp-lt-r (@r) {
+  -webkit-border-top-left-radius: @r;
+     -moz-border-radius-topleft: @r;
+          border-top-left-radius: @r;
+}
+
+
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Top to bottom gradient. */
+.mx-tp-to-bm-g (@tp-c, @bm-c) {
+  background-image: -webkit-linear-gradient(top, @tp-c, @bm-c);
+  background-image:    -moz-linear-gradient(top, @tp-c, @bm-c);
+  background-image:         linear-gradient(to bottom, @tp-c, @bm-c);
+}
+
+/* Bottom to top gradient. */
+.mx-bm-to-tp-g (@bm-c, @tp-c) {
+  .mx-tp-to-bm-g(@tp-c, @bm-c);
+}
+
+/* Left to right gradient. */
+.mx-lt-to-rt-g (@lt-c, @rt-c) {
+  background-image: -webkit-linear-gradient(left, @lt-c, @rt-c);
+  background-image:    -moz-linear-gradient(left, @lt-c, @rt-c);
+  background-image:         linear-gradient(to right, @lt-c, @rt-c);
+}
+
+/* Right to left gradient. */
+.mx-rt-to-lt-g (@rt-c, @lt-c) {
+  .mx-lt-to-rt-g(@lt-c, @rt-c);
+}
+
+
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Box shadow. */
+.mx-box-sh (@arguments) {
+  -webkit-box-shadow: @arguments;
+     -moz-box-shadow: @arguments;
+          box-shadow: @arguments;
+}
+
+
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Disable text selection. */
+.mx-disable-text-selection {
+  -webkit-user-select: none;
+  /* Firefox < 21: Don’t use `none`.
+     It leaks on `input[type="text"]` and `textarea` elements,
+     and results in an undesired behavior that can’t be overridden.
+     Use `-moz-none`.
+     Firefox ≥ 21: `none` works as it should’ve been from the start.
+     https://developer.mozilla.org/en-US/docs/CSS/user-select
+     We should probably use it instead of `-moz-none`,
+     but we don’t want to break Firefox < 21. So?!? */
+     -moz-user-select: -moz-none;
+      -ms-user-select: none;
+}
+
+
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ .·. ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */

@@ -1,0 +1,30 @@
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.bc-button:hover,
+.bc-button:focus {
+  outline: 0;
+  background-color: @bc-button-st-hover-bg-c;
+  background-image: none;
+}
+
+.bc-button.bc-st-selected,
+.bc-button:active {
+  background-color: @bc-button-st-selected-bg-c;
+  background-image: none;
+  .mx-box-sh(inset 0 2px 4px @bc-button-st-selected-sh-c);
+}
+
+.bc-button.bc-st-adjacent-left {
+  .mx-b-bm-lt-r(0);
+  .mx-b-tp-lt-r(0);
+}
+
+.bc-button.bc-st-adjacent-right {
+  .mx-b-tp-rt-r(0);
+  .mx-b-bm-rt-r(0);
+}
+
+
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ .·. ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
