@@ -42,8 +42,10 @@
 
 /* Top to bottom gradient. */
 .mx-tp-to-bm-g (@tp-c, @bm-c) {
+  background-image: -webkit-gradient(linear, center top, center bottom, from(@tp-c), to(@bm-c));
   background-image: -webkit-linear-gradient(top, @tp-c, @bm-c);
   background-image:    -moz-linear-gradient(top, @tp-c, @bm-c);
+  background-image:      -o-linear-gradient(top, @tp-c, @bm-c);
   background-image:         linear-gradient(to bottom, @tp-c, @bm-c);
 }
 
@@ -54,8 +56,10 @@
 
 /* Left to right gradient. */
 .mx-lt-to-rt-g (@lt-c, @rt-c) {
+  background-image: -webkit-gradient(linear, left center, right center, from(@lt-c), to(@rt-c));
   background-image: -webkit-linear-gradient(left, @lt-c, @rt-c);
   background-image:    -moz-linear-gradient(left, @lt-c, @rt-c);
+  background-image:      -o-linear-gradient(left, @lt-c, @rt-c);
   background-image:         linear-gradient(to right, @lt-c, @rt-c);
 }
 
@@ -80,7 +84,7 @@
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 /* Disable text selection. */
-.mx-disable-text-selection {
+.mx-disable-text-selection () {
   -webkit-user-select: none;
   /* Firefox < 21: Don’t use `none`.
      It leaks on `input[type="text"]` and `textarea` elements,
@@ -92,6 +96,7 @@
      but we don’t want to break Firefox < 21. So?!? */
      -moz-user-select: -moz-none;
       -ms-user-select: none;
+          user-select: none;
 }
 
 
