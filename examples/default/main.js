@@ -12,7 +12,14 @@ define(
 /* Create and render the component. */
 new Backbone.Calendar(
   {
-    "el" : $("#placeholder")
+    "el" : $("#placeholder"),
+    "header" :
+      {
+        "left" : [ "agendaDay", "agendaWeek", "month", "year", "timeline" ],
+        "center" : [ "title" ],
+        "right" : [ "now", "sep", "prev", "next" ]
+      },
+    "defaultView" : "month"
   }
 ).render();
 

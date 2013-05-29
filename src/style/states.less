@@ -1,18 +1,17 @@
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ·.· ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-.bc-button:hover,
-.bc-button:focus {
-  outline: 0;
+.bc-button:hover {
   background-color: @bc-button-st-hover-bg-c;
-  background-image: none;
+  color: @bc-button-st-hover-c;
+  text-shadow: 0 1px 1px @bc-button-st-hover-t-sh-c;
 }
 
 .bc-button.bc-st-selected,
 .bc-button:active {
   background-color: @bc-button-st-selected-bg-c;
-  background-image: none;
-  .mx-box-sh(inset 0 2px 4px @bc-button-st-selected-sh-c);
+  color: @bc-button-st-selected-c;
+  text-shadow: @bc-button-st-selected-t-sh-c;
 }
 
 .bc-button.bc-st-adjacent-left {
