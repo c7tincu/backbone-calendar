@@ -65,12 +65,8 @@ grunt.initConfig(
       {
         "development" :
           {
-            /* Compile LESS to CSS, and compress CSS,
-               but keep it readable. */
-            "options" :
-              {
-                "compress" : true
-              },
+            /* Compile LESS to CSS, and compress CSS, but keep it readable. */
+            "options" : { "compress" : true },
             "files" :
               {
                 "dist/backbone-calendar.css" : "src/style.less"
@@ -79,10 +75,7 @@ grunt.initConfig(
         "production" :
           {
             /* Compile LESS to CSS, and compress CSS. */
-            "options" :
-              {
-                "yuicompress" : true
-              },
+            "options" : { "yuicompress" : true },
             "files" :
               {
                 "dist/backbone-calendar.min.css" : "src/style.less"
